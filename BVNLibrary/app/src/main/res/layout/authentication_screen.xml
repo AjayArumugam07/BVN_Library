@@ -4,32 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
+
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/signIn_logo"
+        app:layout_constraintStart_toStartOf="@+id/signIn_logo"
+        app:layout_constraintTop_toBottomOf="@+id/signIn_logo" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName"
         android:password="true"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/username"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
@@ -41,6 +44,7 @@
         android:layout_marginTop="32dp"
         android:text="Sign In"
         app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
@@ -50,11 +54,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wcllogo" />
 
     <TextView
@@ -62,15 +66,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:text="Don't Have an Account? Sign up now!"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/signIn_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signIn"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/signIn"
+        app:layout_constraintTop_toBottomOf="@+id/signIn"
+        app:layout_constraintVertical_bias="0.19999999" />
 
 </android.support.constraint.ConstraintLayout>
