@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "746903740612-g7sv46aipk6hebhvkks0ihv3rm2g1nue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.imaginationcreators.bvnlibrary1",
+            "certificate_hash": "e3c37f51a4461d228fa276196e2df5fe7785e793"
+          }
+        },
+        {
           "client_id": "746903740612-3v758j2t0v8ol43ghniv06bm1ah61p1t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
