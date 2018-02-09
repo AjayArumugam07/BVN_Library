@@ -46,6 +46,7 @@ public class AuthScreen extends AppCompatActivity {
                 else{
                     Log.d(TAG, "onClick: Login fail");
                     Toast.makeText(AuthScreen.this, "Login Fail", Toast.LENGTH_SHORT).show();
+                    
                 }
             }
         }
