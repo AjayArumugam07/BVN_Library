@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
@@ -50,12 +51,10 @@ public class CreateUser extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if(view == createAccount){
-                if(createNewAccount(registerEmail.getText().toString().trim(), registerPassword.getText().toString().trim())){
-                    // TODO go to main menu from here
-                }
+                createNewAccount(registerEmail.getText().toString().trim(), registerPassword.getText().toString().trim());
             }
             else if(view == backToLogin){
-                startActivity(new Intent(CreateUser.this, AuthScreen.class));
+                startActivity(new Intent(CreateUser.this, AuthScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         }
     };
@@ -88,21 +87,20 @@ public class CreateUser extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            progressBar.setVisibility(View.GONE);
                             Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(CreateUser.this, "Account Created.", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO Connect user to home screen after successful creation
+//                           TODO go to home screen code: startActivity(new Intent(CreateUser.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                        } else if(task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(CreateUser.this, "Looks like you already have an account", Toast.LENGTH_SHORT).show();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(CreateUser.this, "Unable to create account",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateUser.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
 
-
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
         return true;
