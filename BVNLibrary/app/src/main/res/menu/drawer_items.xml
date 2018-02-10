@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/myAccount"
+        android:title="My Account" />
+
+    <item
+        android:id="@+id/reservations"
+        android:title="Reservations" />
+
+    <item
+        android:id="@+id/map"
+        android:title="Map" />
+
+    <item
+        android:id="@+id/librarians"
+        android:title="Librarians" />
+
+    <item
+        android:id="@+id/about"
+        android:title="About" />
+</menu>

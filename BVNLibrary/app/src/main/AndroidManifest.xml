@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AuthScreen" />
-        <activity android:name=".CreateUser"></activity>
+        <activity android:name=".CreateUser" />
     </application>
 
 </manifest>

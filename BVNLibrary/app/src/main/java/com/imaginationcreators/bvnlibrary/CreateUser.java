@@ -92,8 +92,7 @@ public class CreateUser extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             Toast.makeText(CreateUser.this, "Account Created.", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO Connect user to home screen after successful creation
-
+//                            startActivity(new Intent(CreateUser.this, mainMenu.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -101,10 +100,8 @@ public class CreateUser extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-
                     }
                 });
-        return true;
+        return false;
     }
 }
