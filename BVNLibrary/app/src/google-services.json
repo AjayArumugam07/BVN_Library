@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "746903740612",
+    "firebase_url": "https://bvnlibrary-a0e90.firebaseio.com",
+    "project_id": "bvnlibrary-a0e90",
+    "storage_bucket": "bvnlibrary-a0e90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746903740612:android:f9739551006042c7",
+        "android_client_info": {
+          "package_name": "com.imaginationcreators.bvnlibrary1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746903740612-g7sv46aipk6hebhvkks0ihv3rm2g1nue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.imaginationcreators.bvnlibrary1",
+            "certificate_hash": "e3c37f51a4461d228fa276196e2df5fe7785e793"
+          }
+        },
+        {
+          "client_id": "746903740612-3v758j2t0v8ol43ghniv06bm1ah61p1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.imaginationcreators.bvnlibrary1",
+            "certificate_hash": "47020a722a962e09e409664355e096d368013afa"
+          }
+        },
+        {
+          "client_id": "746903740612-vghht0a69v3re9qm02f0ssegd12tolh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1SOAUvm-7N-CsLZJczT_OjQViM-ZCycw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746903740612-vghht0a69v3re9qm02f0ssegd12tolh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
