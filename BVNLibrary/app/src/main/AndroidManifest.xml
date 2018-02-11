@@ -21,7 +21,12 @@
         <activity android:name=".AuthScreen" />
         <activity android:name=".CreateUser" />
         <activity android:name=".HomeScreen" />
-        <activity android:name=".DrawerMenu"></activity>
+        <activity android:name=".DrawerMenu" />
+        <activity android:name=".MyAccount" />
+        <activity android:name=".Reservations" />
+        <activity android:name=".Map" />
+        <activity android:name=".Librarians" />
+        <activity android:name=".AboutApp"></activity>
     </application>
 
 </manifest>
