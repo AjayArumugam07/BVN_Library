@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".AuthScreen" />
         <activity android:name=".CreateUser" />
+        <activity android:name=".HomeScreen" />
+        <activity android:name=".DrawerMenu"></activity>
     </application>
 
 </manifest>

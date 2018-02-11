@@ -3,22 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@mipmap/ic_home_black_24dp"/>
+    <item
         android:id="@+id/myAccount"
-        android:title="My Account" />
+        android:title="My Account"
+        android:icon="@mipmap/ic_account_circle_black_24dp"/>
 
     <item
         android:id="@+id/reservations"
-        android:title="Reservations" />
+        android:title="Reservations"
+        android:icon="@mipmap/ic_date_range_black_24dp"/>
 
     <item
         android:id="@+id/map"
-        android:title="Map" />
+        android:title="Map"
+        android:icon="@mipmap/ic_map_black_24dp"/>
 
     <item
         android:id="@+id/librarians"
-        android:title="Librarians" />
+        android:title="Librarians"
+        android:icon="@mipmap/ic_people_outline_black_24dp"/>
 
     <item
         android:id="@+id/about"
-        android:title="About" />
+        android:title="About"
+        android:icon="@mipmap/ic_info_outline_black_24dp"/>
 </menu>
