@@ -13,8 +13,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Search search = new Search();
         // TODO comment line 17 and uncomment line 18 to test auth screen
-        startActivity(new Intent(this, HomeScreen.class));
+//        startActivity(new Intent(this, HomeScreen.class));
 
     }
 
