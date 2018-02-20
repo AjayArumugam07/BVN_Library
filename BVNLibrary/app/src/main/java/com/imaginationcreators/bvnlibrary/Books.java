@@ -11,71 +11,39 @@ public class Books {
     private String authorLastName;
     private String ISBN;
     private String numberOfCopies;
+    private String availablity;
 
     public Books() {
         this.authorFirstName = "UNKNOWN";
         this.authorLastName = "UNKNOWN";
         this.title = "UNKNOWN";
         this.ISBN = "UNKNOWN";
-        this.numberOfCopies = "UNKNOWN";
+        this.availablity = "UNKNOWN";
     }
 
     public String[][] copyList;
 
-    public Books(String title, String authorFirstName, String authorLastName, String ISBN, String numberOfCopies, String[][] copyList) {
+    public Books(String title, String authorFirstName, String authorLastName, String ISBN, String availablity) {
         this.title = title;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
         this.ISBN = ISBN;
-        this.numberOfCopies = numberOfCopies;
-        this.copyList = copyList;
+        this.availablity = availablity;
     }
 
     public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        return title.toLowerCase();
     }
 
     public String getAuthorFirstName() {
-        return authorFirstName;
-    }
-
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
+        return authorFirstName.toLowerCase();
     }
 
     public String getAuthorLastName() {
-        return authorLastName;
-    }
-
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
+        return authorLastName.toLowerCase();
     }
 
     public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public String getNumberOfCopies() {
-        return numberOfCopies;
-    }
-
-    public void setNumberOfCopies(String numberOfCopies) {
-        this.numberOfCopies = numberOfCopies;
-    }
-
-    public String[][] getCopyList() {
-        return copyList;
-    }
-
-    public void setCopyList(String[][] copyList) {
-        this.copyList = copyList;
+        return ISBN.toLowerCase();
     }
 }
