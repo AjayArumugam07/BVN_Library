@@ -17,4 +17,8 @@
         <item>Author</item>
         <item>ISBN</item>
     </string-array>
+
+    <string name="facebook_app_id">1786834058101001</string>
+    <string name="fb_login_protocol_scheme">fb1786834058101001</string>
+
 </resources>

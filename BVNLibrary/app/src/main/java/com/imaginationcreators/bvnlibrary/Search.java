@@ -42,6 +42,7 @@ public class Search {
     }
     public ArrayList searchFromSample(String title, final String searchType)
     {
+
         setLocalDatabaseForSearchTitle();
         title = title.toLowerCase();
         final String[] titleArray = title.split(" ");
