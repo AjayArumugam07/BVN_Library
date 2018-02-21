@@ -53,12 +53,12 @@ public class Search {
                 {
                     for(int j = 0; j < searchSample.size(); j++)
                     {
-                        if (searchType.equals("title") && searchSample.get(j).getTitle().contains(titleArray[i]))
+                        if (searchType.equals("Title") && searchSample.get(j).getTitle().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d("String1", searchSample.get(j).getTitle());
                         }
-                        if (searchType.equals("author") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().contains(titleArray[i])))
+                        if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().contains(titleArray[i])))
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d("String1", searchSample.get(j).getTitle());

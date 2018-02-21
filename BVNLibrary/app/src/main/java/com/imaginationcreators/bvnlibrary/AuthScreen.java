@@ -180,7 +180,7 @@ public class AuthScreen extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-//                   TODO go to home screen code: startActivity(new Intent(AuthScreen.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    startActivity(new Intent(AuthScreen.this, HomeScreen.class));
 
                 } else {
                     Toast.makeText(AuthScreen.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

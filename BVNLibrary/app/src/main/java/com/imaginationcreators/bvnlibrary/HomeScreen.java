@@ -36,14 +36,18 @@ public class HomeScreen extends DrawerMenu {
         public boolean onQueryTextSubmit(String query) {
             // TODO call search class with query as search string and searchBy as search parameter
 
-            // Will either be Title, Author, or ISBN
-            String searchBy = spinner.getSelectedItem().toString();
+            Intent openSearch = new Intent(HomeScreen.this, SearchScreen.class);
+            openSearch.putExtra("TitleTag", query);
+            openSearch.putExtra("SearchByTag", spinner.getSelectedItem().toString());
+
+            startActivity(new Intent(openSearch));
+            finish();
             return false;
         }
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            // TODO update search suggestions here
+            // TODO update search suggestions here for nationals
             return false;
         }
     };

@@ -26,6 +26,7 @@
         <activity android:name=".Reservations" />
         <activity android:name=".Map" />
         <activity android:name=".Librarians" />
+        <activity android:name=".SearchScreen"/>
         <activity android:name=".AboutApp"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
