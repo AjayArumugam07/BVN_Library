@@ -3,7 +3,7 @@ package com.imaginationcreators.bvnlibrary;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Map extends AppCompatActivity {
+public class Map extends DrawerMenu {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

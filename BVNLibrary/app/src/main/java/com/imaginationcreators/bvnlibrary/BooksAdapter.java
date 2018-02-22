@@ -39,6 +39,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
         holder.author.setText(author);
 
+
         // TODO set image by holder.cover. (get image from firebase
     }
 

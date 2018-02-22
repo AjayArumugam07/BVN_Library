@@ -12,37 +12,40 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.EventListener;
 
 public class Search {
-
+    private static final String TAG = "Search";
 
 
     private ArrayList<Books> searchResults = new ArrayList<>();
     private ArrayList<Books> searchSample = new ArrayList<>();
-    private Task<Void> fetchTask;
-    private int numberOfResults;
+
 
     private int i = 0;
     private TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
-    public Task dbTask = dbSource.getTask();
-    private String[][] localDatabse;
+
+    public TaskCompletionSource<ArrayList<Books>> dbSource1 = new TaskCompletionSource<>();
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     public ArrayList<String> genre = new ArrayList<>();
 
-
     public Search()
     {
-        Log.d("String", "Search Created");
+        Log.d(TAG, "Search Created");
+
+        if(dbSource == null){
+            Log.d(TAG, "Search: DB source is null");
+        }
     }
     public ArrayList searchFromSample(String title, final String searchType)
     {
-
+        Log.d(TAG, "1");
         setLocalDatabaseForSearchTitle();
         title = title.toLowerCase();
         final String[] titleArray = title.split(" ");
@@ -56,28 +59,29 @@ public class Search {
                         if (searchType.equals("Title") && searchSample.get(j).getTitle().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d("String1", searchSample.get(j).getTitle());
+                            Log.d(TAG, searchSample.get(j).getTitle());
                         }
                         if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().contains(titleArray[i])))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d("String1", searchSample.get(j).getTitle());
+                            Log.d(TAG, searchSample.get(j).getTitle());
                         }
                         if (searchType.equals("ISBN") && searchSample.get(j).getISBN().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d("String1", searchSample.get(j).getTitle());
+                            Log.d(TAG, searchSample.get(j).getTitle());
                         }
-                        if (searchType.equals("all") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) ||
+                        if (searchType.equals("Any") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) ||
                                 searchSample.get(j).getAuthorLastName().contains(titleArray[i])) ||
                                 searchSample.get(j).getTitle().contains(titleArray[i]) ||
                                 searchSample.get(j).getISBN().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d("String1", searchSample.get(j).getTitle());
+                            Log.d(TAG, searchSample.get(j).getTitle());
                         }
                     }
                 }
+                dbSource1.setResult(searchResults);
             }
         });
         return searchResults;
@@ -85,6 +89,7 @@ public class Search {
 
     public void setLocalDatabaseForSearchTitle()
     {
+        Log.d(TAG, "2");
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
