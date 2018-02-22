@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.imaginationcreators.bvnlibrary.Map">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="308dp"
+        android:layout_height="293dp"
+        app:srcCompat="@drawable/libmap"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="137dp" />
 </android.support.constraint.ConstraintLayout>
