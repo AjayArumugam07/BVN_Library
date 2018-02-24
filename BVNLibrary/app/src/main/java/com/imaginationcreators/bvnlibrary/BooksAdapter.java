@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.List;
 
 /**
@@ -17,6 +22,10 @@ import java.util.List;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
     private Context mCtx;
     private List<Books> books;
+    public FirebaseStorage storage = FirebaseStorage.getInstance();
+    public StorageReference storageRef = storage.getReference();
+    StorageReference gsReference = storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png");
+
 
     public BooksAdapter(Context mCtx, List<Books> books) {
         this.mCtx = mCtx;
@@ -40,7 +49,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         holder.author.setText(author);
 
 
-        // TODO set image by holder.cover. (get image from firebase
+        Glide.with(mCtx)
+                .using(new FirebaseImageLoader())
+                .load(storage.getReferenceFromUrl(book.getUrl()))
+                .into(holder.cover);
     }
 
     @Override

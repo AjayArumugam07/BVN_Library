@@ -12,6 +12,7 @@ public class Books {
     private String ISBN;
     private String numberOfCopies;
     private String availablity;
+    private String url;
 
     public Books() {
         this.authorFirstName = "UNKNOWN";
@@ -23,27 +24,33 @@ public class Books {
 
     public String[][] copyList;
 
-    public Books(String title, String authorFirstName, String authorLastName, String ISBN, String availablity) {
+    public Books(String title, String authorFirstName, String authorLastName, String ISBN, String availablity, String url) {
         this.title = title;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
         this.ISBN = ISBN;
         this.availablity = availablity;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String getTitle() {
-        return title.toLowerCase();
+        return title;
+
     }
 
     public String getAuthorFirstName() {
-        return authorFirstName.toLowerCase();
+        return authorFirstName;
     }
 
     public String getAuthorLastName() {
-        return authorLastName.toLowerCase();
+        return authorLastName;
     }
 
     public String getISBN() {
-        return ISBN.toLowerCase();
+        return ISBN;
     }
 }

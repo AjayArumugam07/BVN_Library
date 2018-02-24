@@ -56,12 +56,12 @@ public class Search {
                 {
                     for(int j = 0; j < searchSample.size(); j++)
                     {
-                        if (searchType.equals("Title") && searchSample.get(j).getTitle().contains(titleArray[i]))
+                        if (searchType.equals("Title") && searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
                         }
-                        if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().contains(titleArray[i])))
+                        if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])))
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
@@ -71,9 +71,9 @@ public class Search {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
                         }
-                        if (searchType.equals("Any") && (searchSample.get(j).getAuthorFirstName().contains(titleArray[i]) ||
-                                searchSample.get(j).getAuthorLastName().contains(titleArray[i])) ||
-                                searchSample.get(j).getTitle().contains(titleArray[i]) ||
+                        if (searchType.equals("Any") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) ||
+                                searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])) ||
+                                searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]) ||
                                 searchSample.get(j).getISBN().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
@@ -101,7 +101,8 @@ public class Search {
                             dataSnapshot1.child("Author_First_Name").getValue().toString(),
                             dataSnapshot1.child("Author_Last_Name").getValue().toString(),
                             dataSnapshot1.child("ISBN").getValue().toString(),
-                            dataSnapshot1.child("Availablility").getValue().toString()));
+                            dataSnapshot1.child("Availablility").getValue().toString(),
+                            dataSnapshot1.child("Reference").getValue().toString()));
                 }
                 if(i >= 5)
                 {
