@@ -93,8 +93,8 @@ public class AuthScreen extends AppCompatActivity {
     private void updateUI()
     {
         Toast.makeText(AuthScreen.this, "Logged In", Toast.LENGTH_LONG);
-        startActivity(new Intent(this, HomeScreen.class));
         finish();
+        startActivity(new Intent(this, HomeScreen.class));
     }
 
     private void handleFacebookAccessToken(AccessToken token) {

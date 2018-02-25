@@ -1,6 +1,7 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Pattern;
 
@@ -29,6 +32,7 @@ public class CreateUser extends AppCompatActivity {
     private Button createAccount;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    private EditText nameOfUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class CreateUser extends AppCompatActivity {
         createAccount = (Button) findViewById(R.id.createAccount);
         backToLogin = (TextView) findViewById(R.id.backToLogin);
         progressBar = (ProgressBar) findViewById(R.id.progress_Bar_Register);
+        nameOfUser = (EditText) findViewById(R.id.name);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -59,6 +64,7 @@ public class CreateUser extends AppCompatActivity {
     };
 
     private boolean createNewAccount(String email, String password) {
+       final String name = nameOfUser.getText().toString();
         if (email.isEmpty()) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
             return false;
@@ -75,17 +81,36 @@ public class CreateUser extends AppCompatActivity {
             Toast.makeText(this, "Password has to be a minimum of 6 characters", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (name.isEmpty()) {
+            Toast.makeText(this, "Enter your name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(CreateUser.this, "Account Created.", Toast.LENGTH_SHORT).show();
+
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO go to home screen
+
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
+
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "Account Created");
+                                                startActivity(new Intent(CreateUser.this, HomeScreen.class));
+                                            }
+                                        }
+                                    });
+
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(CreateUser.this, "Looks like you already have an account", Toast.LENGTH_SHORT).show();
 
