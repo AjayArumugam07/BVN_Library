@@ -14,6 +14,8 @@ import android.view.MenuItem;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {

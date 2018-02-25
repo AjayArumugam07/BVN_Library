@@ -13,15 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
-import com.facebook.login.LoginManager;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-
 public class HomeScreen extends DrawerMenu {
     SearchView searchView;
     Spinner spinner;
-    Button signOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +26,6 @@ public class HomeScreen extends DrawerMenu {
 
         searchView = (SearchView) findViewById(R.id.searchBar);
         spinner = (Spinner) findViewById(R.id.spinner);
-        signOutButton = (Button) findViewById(R.id.sign_Out_Button);
-
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                finish();
-                startActivity(new Intent(HomeScreen.this, AuthScreen.class));
-            }
-        });
-
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(HomeScreen.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerNames));
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
