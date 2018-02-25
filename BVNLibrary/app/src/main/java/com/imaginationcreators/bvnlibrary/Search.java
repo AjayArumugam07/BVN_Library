@@ -31,7 +31,7 @@ public class Search {
 
     public TaskCompletionSource<ArrayList<Books>> dbSource1 = new TaskCompletionSource<>();
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Books");
 
     public ArrayList<String> genre = new ArrayList<>();
 

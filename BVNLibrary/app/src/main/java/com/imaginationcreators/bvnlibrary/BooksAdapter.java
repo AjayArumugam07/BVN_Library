@@ -48,7 +48,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
         holder.author.setText(author);
 
-
         Glide.with(mCtx)
                 .using(new FirebaseImageLoader())
                 .load(storage.getReferenceFromUrl(book.getUrl()))

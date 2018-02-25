@@ -36,8 +36,6 @@ public class HomeScreen extends DrawerMenu {
     SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            // TODO call search class with query as search string and searchBy as search parameter
-
             Intent openSearch = new Intent(HomeScreen.this, SearchScreen.class);
             openSearch.putExtra("TitleTag", query);
             openSearch.putExtra("SearchByTag", spinner.getSelectedItem().toString());
