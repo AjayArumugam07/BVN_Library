@@ -22,7 +22,7 @@ public class AssignBook {
         if(book.getAvailablity().equalsIgnoreCase("Available"))
         {
            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").setValue(book.getTitle());
-           database.getReference().child("Books").child(book.getTitle()).child("Availablility").setValue("Unavailable");
+           database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
         }
 
         if(book.getAvailablity().equalsIgnoreCase(("Unavailable")))
