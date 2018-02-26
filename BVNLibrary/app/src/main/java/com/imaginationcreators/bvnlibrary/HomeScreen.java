@@ -13,12 +13,16 @@ import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeScreen extends DrawerMenu {
     SearchView searchView;
     Spinner spinner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
         getLayoutInflater().inflate(R.layout.home_screen, contentFrameLayout);
@@ -36,8 +40,6 @@ public class HomeScreen extends DrawerMenu {
     SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            // TODO call search class with query as search string and searchBy as search parameter
-
             Intent openSearch = new Intent(HomeScreen.this, SearchScreen.class);
             openSearch.putExtra("TitleTag", query);
             openSearch.putExtra("SearchByTag", spinner.getSelectedItem().toString());

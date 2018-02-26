@@ -22,7 +22,7 @@ public class Search {
     private static final String TAG = "Search";
 
 
-    private ArrayList<Books> searchResults = new ArrayList<>();
+    public ArrayList<Books> searchResults = new ArrayList<>();
     private ArrayList<Books> searchSample = new ArrayList<>();
 
 
@@ -31,7 +31,7 @@ public class Search {
 
     public TaskCompletionSource<ArrayList<Books>> dbSource1 = new TaskCompletionSource<>();
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Books");
 
     public ArrayList<String> genre = new ArrayList<>();
 
@@ -93,7 +93,7 @@ public class Search {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                i = i + 1;
+
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
 
@@ -104,10 +104,9 @@ public class Search {
                             dataSnapshot1.child("Availablility").getValue().toString(),
                             dataSnapshot1.child("Reference").getValue().toString()));
                 }
-                if(i >= 5)
-                {
+
                     dbSource.setResult(searchSample);
-                }
+
             }
             @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}

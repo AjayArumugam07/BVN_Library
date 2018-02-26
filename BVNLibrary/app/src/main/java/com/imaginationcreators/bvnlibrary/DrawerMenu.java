@@ -50,8 +50,28 @@ public class DrawerMenu extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
+                    case R.id.home:
+                        startActivity(new Intent(DrawerMenu.this, HomeScreen.class));
+                        finish();
+                        break;
+                    case R.id.myAccount:
+                        startActivity(new Intent(DrawerMenu.this, MyAccount.class));
+                        finish();
+                        break;
+                    case R.id.reservations:
+                        startActivity(new Intent(DrawerMenu.this, Reservations.class));
+                        finish();
+                        break;
                     case R.id.map:
                         startActivity(new Intent(DrawerMenu.this, Map.class));
+                        finish();
+                        break;
+                    case R.id.librarians:
+                        startActivity(new Intent(DrawerMenu.this, Librarians.class));
+                        finish();
+                        break;
+                    case R.id.about:
+                        startActivity(new Intent(DrawerMenu.this, AboutApp.class));
                         finish();
                         break;
                     case R.id.logout:
@@ -78,11 +98,6 @@ public class DrawerMenu extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         toggle.syncState();
-    }
-
-    @Override
-    public boolean onMenuOpened(int featureId, Menu menu) {
-        return super.onMenuOpened(featureId, menu);
     }
 }
 
