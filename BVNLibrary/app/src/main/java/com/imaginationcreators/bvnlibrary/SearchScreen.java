@@ -21,13 +21,15 @@ public class SearchScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_screen);
 
-        Search search = new Search();
+        final Search search = new Search();
         books = search.searchFromSample(getIntent().getStringExtra("TitleTag"), getIntent().getStringExtra("SearchByTag"));
 
 
         search.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                AssignBook assignBook = new AssignBook();
+                assignBook.checkoutReserveBook(search.searchResults.get(1));
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchScreen.this));

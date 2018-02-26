@@ -33,6 +33,10 @@ public class Books {
         this.url = url;
     }
 
+    public String getAvailablity() {
+        return availablity;
+    }
+
     public String getUrl() {
         return url;
     }

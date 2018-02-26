@@ -13,12 +13,16 @@ import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeScreen extends DrawerMenu {
     SearchView searchView;
     Spinner spinner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
         getLayoutInflater().inflate(R.layout.home_screen, contentFrameLayout);
