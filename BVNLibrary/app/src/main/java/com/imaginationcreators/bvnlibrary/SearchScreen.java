@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class SearchScreen extends AppCompatActivity {
+public class SearchScreen extends DrawerMenu {
     RecyclerView recyclerView;
     BooksAdapter adapter;
 
@@ -19,7 +20,8 @@ public class SearchScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_screen);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
+        getLayoutInflater().inflate(R.layout.search_screen, contentFrameLayout);
 
         final Search search = new Search();
         books = search.searchFromSample(getIntent().getStringExtra("TitleTag"), getIntent().getStringExtra("SearchByTag"));
