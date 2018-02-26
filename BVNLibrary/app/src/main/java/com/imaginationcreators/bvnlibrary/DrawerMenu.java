@@ -54,10 +54,6 @@ public class DrawerMenu extends AppCompatActivity {
                         startActivity(new Intent(DrawerMenu.this, HomeScreen.class));
                         finish();
                         break;
-                    case R.id.myAccount:
-                        startActivity(new Intent(DrawerMenu.this, MyAccount.class));
-                        finish();
-                        break;
                     case R.id.reservations:
                         startActivity(new Intent(DrawerMenu.this, Reservations.class));
                         finish();
