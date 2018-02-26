@@ -60,6 +60,7 @@ public class Search {
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
+                            Log.d(TAG, "onCompltesete: " + titleArray.length);
                         }
                         if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])))
                         {
@@ -77,7 +78,7 @@ public class Search {
                                 searchSample.get(j).getISBN().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d(TAG, searchSample.get(j).getTitle());
+                            //Log.d(TAG, searchSample.get(j).getTitle());
                         }
                     }
                 }
