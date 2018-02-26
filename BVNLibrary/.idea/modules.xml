@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BVNLibrary.iml" filepath="$PROJECT_DIR$/BVNLibrary.iml" />
-      <module fileurl="file://C:\Users\Nirvan\Documents\bvn-library\BVNLibrary\BVNLibrary.iml" filepath="C:\Users\Nirvan\Documents\bvn-library\BVNLibrary\BVNLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Nirvan\Documents\bvn-library\BVNLibrary\app\app.iml" filepath="C:\Users\Nirvan\Documents\bvn-library\BVNLibrary\app\app.iml" />
     </modules>
   </component>
 </project>
