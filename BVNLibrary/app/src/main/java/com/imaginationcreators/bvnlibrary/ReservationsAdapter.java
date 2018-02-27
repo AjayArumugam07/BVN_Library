@@ -17,31 +17,30 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 /**
- * Created by rnagp on 2/21/2018.
+ * Created by rnagp on 2/27/2018.
  */
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
+public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapter.ReservationsViewHolder>{
     private Context mCtx;
     private List<Books> books;
     public FirebaseStorage storage = FirebaseStorage.getInstance();
     public StorageReference storageRef = storage.getReference();
     StorageReference gsReference = storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png");
 
-
-    public BooksAdapter(Context mCtx, List<Books> books) {
+    public ReservationsAdapter(Context mCtx, List<Books> books) {
         this.mCtx = mCtx;
         this.books = books;
     }
 
     @Override
-    public BooksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReservationsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.book_list, null);
-        return new BooksViewHolder(view);
+        View view = inflater.inflate(R.layout.reservation_list, null);
+        return new ReservationsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final BooksViewHolder holder, int position) {
+    public void onBindViewHolder(final ReservationsAdapter.ReservationsViewHolder holder, int position) {
         final Books book = books.get(position);
 
         holder.title.setText(book.getTitle());
@@ -50,19 +49,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
         holder.author.setText(author);
 
+        // TODO add pickup.setText() for when book should be picked up
+
         Glide.with(mCtx)
                 .using(new FirebaseImageLoader())
                 .load(storage.getReferenceFromUrl(book.getUrl()))
                 .into(holder.cover);
 
         final AssignBook assignBook = new AssignBook();
-        holder.reserveCheckout.setText(assignBook.textToSet(books, book));
-        holder.reserveCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                assignBook.checkoutReserveBook(book);
-            }
-        });
     }
 
     @Override
@@ -70,18 +64,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         return books.size();
     }
 
-    class BooksViewHolder extends RecyclerView.ViewHolder{
+    class ReservationsViewHolder extends RecyclerView.ViewHolder{
         ImageView cover;
-        TextView title, author;
-        Button reserveCheckout;
+        TextView title, author, pickup;
 
-        public BooksViewHolder(View itemView) {
+        public ReservationsViewHolder(View itemView) {
             super(itemView);
 
             cover = itemView.findViewById(R.id.bookCover);
             title = itemView.findViewById(R.id.title);
             author = itemView.findViewById(R.id.pickup);
-            reserveCheckout = itemView.findViewById(R.id.reserveCheckout);
+            pickup = itemView.findViewById(R.id.pickup);
         }
     }
 }
