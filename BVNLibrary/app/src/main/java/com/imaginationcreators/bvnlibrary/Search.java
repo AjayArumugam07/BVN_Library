@@ -23,11 +23,11 @@ public class Search {
 
 
     public ArrayList<Books> searchResults = new ArrayList<>();
-    private ArrayList<Books> searchSample = new ArrayList<>();
+    public ArrayList<Books> searchSample = new ArrayList<>();
 
 
     private int i = 0;
-    private TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
 
     public TaskCompletionSource<ArrayList<Books>> dbSource1 = new TaskCompletionSource<>();
 

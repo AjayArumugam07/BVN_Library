@@ -30,8 +30,7 @@ public class SearchScreen extends DrawerMenu {
         search.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                AssignBook assignBook = new AssignBook();
-                assignBook.checkoutReserveBook(search.searchResults.get(0));
+
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchScreen.this));

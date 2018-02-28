@@ -31,6 +31,9 @@ public class HomeScreen extends DrawerMenu {
         searchView = (SearchView) findViewById(R.id.searchBar);
         spinner = (Spinner) findViewById(R.id.spinner);
 
+        AssignBook assignBook = new AssignBook();
+        assignBook.getOverdueBooks();
+
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(HomeScreen.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerNames));
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(listAdapter);
