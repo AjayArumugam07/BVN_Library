@@ -24,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        AssignBook assignBook = new AssignBook();
+//        assignBook.getOverdueBooks();
         startActivity(new Intent(this, AuthScreen.class));
+
         finish();
     }
 }

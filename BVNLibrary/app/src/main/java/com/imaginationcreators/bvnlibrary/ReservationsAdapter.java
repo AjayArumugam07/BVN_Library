@@ -73,7 +73,7 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
 
             cover = itemView.findViewById(R.id.bookCover);
             title = itemView.findViewById(R.id.title);
-            author = itemView.findViewById(R.id.pickup);
+            author = itemView.findViewById(R.id.author);
             pickup = itemView.findViewById(R.id.pickup);
         }
     }
