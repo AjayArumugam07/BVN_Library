@@ -8,9 +8,9 @@
         android:icon="@mipmap/ic_home_black_24dp"/>
 
     <item
-        android:id="@+id/reservations"
-        android:title="Reservations"
-        android:icon="@mipmap/ic_date_range_black_24dp"/>
+        android:id="@+id/myAccount"
+        android:title="My Account"
+        android:icon="@mipmap/ic_account_circle_black_24dp"/>
 
     <item
         android:id="@+id/map"

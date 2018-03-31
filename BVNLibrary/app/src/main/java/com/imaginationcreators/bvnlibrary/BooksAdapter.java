@@ -20,7 +20,9 @@ import java.util.List;
  * Created by rnagp on 2/21/2018.
  */
 
+// Adapter to be used with recylcer view in displaying list of books on search screen
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
+    // Create variables
     private Context mCtx;
     private List<Books> books;
     public FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -28,11 +30,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
     StorageReference gsReference = storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png");
 
 
+    // Constructor passing in context and array of books to be displayed
     public BooksAdapter(Context mCtx, List<Books> books) {
         this.mCtx = mCtx;
         this.books = books;
     }
 
+    // Inflates layout with book holder
     @Override
     public BooksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
@@ -40,47 +44,65 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         return new BooksViewHolder(view);
     }
 
+    // Bind book to position recycler view is on
     @Override
-    public void onBindViewHolder(final BooksViewHolder holder, int position) {
+    public void onBindViewHolder(final BooksViewHolder holder, final int position) {
+        // Create object of book currently on
         final Books book = books.get(position);
 
+        // Set title and author on text views
         holder.title.setText(book.getTitle());
-
-
         String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
         holder.author.setText(author);
 
+        // Add image of book cover
         Glide.with(mCtx)
                 .using(new FirebaseImageLoader())
                 .load(storage.getReferenceFromUrl(book.getUrl()))
                 .into(holder.cover);
 
-        final AssignBook assignBook = new AssignBook();
-        holder.reserveCheckout.setText(assignBook.textToSet(books, book));
+        final AssignBook assignBook1 = new AssignBook();
+        assignBook1.setButtonText(holder, books, book);
+
         holder.reserveCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignBook.checkoutReserveBook(book);
+                Button button = (Button) v;
+                AssignBook assignBook = new AssignBook();
+                switch(button.getText().toString()){
+                    case "Checkout":
+                        assignBook.checkoutReserveBook(book);
+                        holder.reserveCheckout.setText("Return");
+                        break;
+                    /*case "Return":
+                        assignBook.returnBook(book);
+                        holder.reserveCheckout.setText("Checkout");
+                        break;*/
+                }
             }
         });
     }
 
+    // Returns number of books total to be displayed
     @Override
     public int getItemCount() {
         return books.size();
     }
 
-    class BooksViewHolder extends RecyclerView.ViewHolder{
+    // Class to hold books
+    public class BooksViewHolder extends RecyclerView.ViewHolder{
+        // Creates fields to be displayed
         ImageView cover;
         TextView title, author;
         Button reserveCheckout;
 
+        // Find each field in layout
         public BooksViewHolder(View itemView) {
             super(itemView);
 
             cover = itemView.findViewById(R.id.bookCover);
             title = itemView.findViewById(R.id.title);
-            author = itemView.findViewById(R.id.pickup);
+            author = itemView.findViewById(R.id.dueDate);
             reserveCheckout = itemView.findViewById(R.id.reserveCheckout);
         }
     }

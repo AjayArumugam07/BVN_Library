@@ -4,8 +4,9 @@ package com.imaginationcreators.bvnlibrary;
  * Created by Ajay_Krish on 2/12/2018.
  */
 
+// Class to hold books and their properties
 public class Books {
-
+    // Creates fields for books
     private String title;
     private String authorFirstName;
     private String authorLastName;
@@ -14,6 +15,7 @@ public class Books {
     private String availablity;
     private String url;
 
+    // Constructor which sets values to defaults
     public Books() {
         this.authorFirstName = "UNKNOWN";
         this.authorLastName = "UNKNOWN";
@@ -22,8 +24,7 @@ public class Books {
         this.availablity = "UNKNOWN";
     }
 
-    public String[][] copyList;
-
+    // Constructor with parameters passed in
     public Books(String title, String authorFirstName, String authorLastName, String ISBN, String availablity, String url) {
         this.title = title;
         this.authorFirstName = authorFirstName;
@@ -33,6 +34,7 @@ public class Books {
         this.url = url;
     }
 
+    // List of getters for member variables
     public String getAvailablity() {
         return availablity;
     }

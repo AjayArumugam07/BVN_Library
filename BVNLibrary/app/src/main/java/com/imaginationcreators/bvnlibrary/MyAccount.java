@@ -1,7 +1,6 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +12,16 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class Reservations extends DrawerMenu {
+public class MyAccount extends DrawerMenu {
     RecyclerView recyclerView;
-    ReservationsAdapter adapter;
+    MyAccountAdapter adapter;
 
     private ArrayList<Books> books;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
-        getLayoutInflater().inflate(R.layout.reservations_screen, contentFrameLayout);
+        getLayoutInflater().inflate(R.layout.my_account, contentFrameLayout);
 
         books = new ArrayList<>();
         final AssignBook assignBook = new AssignBook();
@@ -42,18 +41,14 @@ public class Reservations extends DrawerMenu {
 
                         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                         recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(Reservations.this));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MyAccount.this));
 
-                        adapter = new ReservationsAdapter(Reservations.this, assignBook.reservedBooks);
+                        adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks);
                         recyclerView.setAdapter(adapter);
                     }
                 });
             }
         });
-
-        // TODO Ajay set ArrayList books to array of books on hold here
-
-
     }
 }
 

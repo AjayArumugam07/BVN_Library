@@ -67,15 +67,9 @@ public class Search {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
                         }
-                        if (searchType.equals("ISBN") && searchSample.get(j).getISBN().contains(titleArray[i]))
-                        {
-                            searchResults.add(searchSample.get(j));
-                            Log.d(TAG, searchSample.get(j).getTitle());
-                        }
                         if (searchType.equals("Any") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) ||
                                 searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])) ||
-                                searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]) ||
-                                searchSample.get(j).getISBN().contains(titleArray[i]))
+                                searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]))
                         {
                             searchResults.add(searchSample.get(j));
                             //Log.d(TAG, searchSample.get(j).getTitle());

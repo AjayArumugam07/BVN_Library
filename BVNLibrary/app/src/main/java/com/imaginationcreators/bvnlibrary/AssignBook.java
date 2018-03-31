@@ -36,9 +36,12 @@ public class AssignBook {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public String dueDate;
     int j = 0;
 
     public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
+    public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
+    public TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
 
     public void checkoutReserveBook(final Books book) {
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
@@ -89,72 +92,40 @@ public class AssignBook {
 
     }
 
-    public String textToSet(final List<Books> searchSample, Books book) {
-        Log.d(TAG, "textToSet: " + mAuth.getUid());
+    public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
         if (book.getAvailablity().contains("Available")) {
-            return "Checkout";
+            holder.reserveCheckout.setText("Checkout");
+            holder.reserveCheckout.setEnabled(true);
+            return;
         }
-//        List<Books> userReservedBooks = getUserReservedBooks(searchSample);
-        List<Books> userCheckedBooks = getUserCheckedoutBooks(searchSample);
+        /*
+        final Search search = new Search();
+        search.setLocalDatabaseForSearchTitle();
+        search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
 
-//        for(int i = 0; i < userReservedBooks.size(); i++){
-//            if(userReservedBooks.get(i).getTitle().equals(book.getTitle())){
-//                return "Reserved";
-//            }
-//        }
-
-        for(int i = 0; i < userCheckedBooks.size(); i++){
-            if(userCheckedBooks.get(i) == book){
-                return "Issued";
+                dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                        for(int i = 0; i < reservedBooks.size(); i++){
+                            if(reservedBooks.get(i) == book){
+                                holder.reserveCheckout.setText("Return");
+                                holder.reserveCheckout.setEnabled(true);
+                                return;
+                            }
+                        }
+                    }
+                });
             }
-        }
+        });*/
 
-        return "Reserve";
-}
 
-//    public List<Books> getUserReservedBooks(final List<Books> searchSample) {
-//        final ArrayList<Books> reservedBooks = new ArrayList<Books>();
-//        database.getReference().child("Users").child(mAuth.getUid()).child("Reserved Books").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//
-//                    for (int i = 0; i < searchSample.size(); i++) {
-//                        if (dataSnapshot.getValue().toString().equals(searchSample.get(i).getTitle())) {
-//                            reservedBooks.add(searchSample.get(i));
-//                        }
-//                    }
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//
-//                    for (int i = 0; i < searchSample.size(); i++) {
-//                        if (dataSnapshot.getValue().toString().equals(searchSample.get(i).getTitle())) {
-//                            reservedBooks.remove(searchSample.get(i));
-//                        }
-//                    }
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//        return reservedBooks;
-//    }
+        holder.reserveCheckout.setText("Not Available");
+        holder.reserveCheckout.setEnabled(false);
+        return;
+    }
+
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
     public List<Books> getUserCheckedoutBooks(final List<Books> searchSample) {
 
@@ -174,6 +145,7 @@ public class AssignBook {
 
                 }
                 Log.d("123456789", reservedBooks.size() + " hi");
+
                 dbSource.setResult(reservedBooks);
 
             }
@@ -184,15 +156,6 @@ public class AssignBook {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//
-//                    for (int i = 0; i < searchSample.size(); i++) {
-//                        if (dataSnapshot.getValue().toString().equals(searchSample.get(i).getTitle())) {
-//                            reservedBooks.remove(searchSample.get(i));
-//                        }
-//                    }
-//
-//                }
             }
 
             @Override
@@ -205,74 +168,70 @@ public class AssignBook {
         });
         return reservedBooks;
     }
-//    public ArrayList<Books> overDueBooks = new ArrayList<Books>();
-//    public void getOverdueBooks()
-//    {
-//        final Search search = new Search();
-//        search.setLocalDatabaseForSearchTitle();
-//        Log.d("12345", "check");
-//        search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-//            @Override
-//            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-//
-//                Log.d("overdue", "1");
-//                getUserCheckedoutBooks(search.searchSample);
-//
-//
-////                for(int i = 0; i < search.searchSample.size(); i++)
-////                {
-//                    dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-//                            Log.d("overdue", reservedBooks.size() + " how are you doign");
-//
-//                                Log.d("overdue", reservedBooks.get(j).getTitle() + " this is working");
-//                                database.getReference().child("Books").child("Book").child(reservedBooks.get(j).getTitle()).child("User Information").child("Due Date").addValueEventListener(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(DataSnapshot dataSnapshot) {
-////                                        Log.d("overdue", reservedBooks.get(j).toString() + " hello");
-//                                        for (j = 0; j < reservedBooks.size(); j++) {
-//                                            SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-//                                            Date date = new Date();
-//                                            Date date1 = new Date();
-//                                            Calendar c = Calendar.getInstance();
-//                                            try {
-//                                                date = sdf.parse(dataSnapshot.getValue().toString());
-//                                                date1 = Calendar.getInstance().getTime();
-//
-//                                            } catch (ParseException e) {
-//                                                e.printStackTrace();
-//                                            }
-//
-//                                            Log.d("overdue", date.toString());
-//                                            Log.d("overdue", date1.toString());
-//                                            if (date.before(date1)) {
-//
-//                                                Log.d("overdue", "5" + reservedBooks.get(j).getTitle());
-//                                            overDueBooks.add(reservedBooks.get(j));
-//                                            Log.d("overdue" , overDueBooks.get(j).toString());
-//
-//                                            } else if (date.after(date1)) {
-//                                                Log.d("overdue", "6");
-//                                            }
-//
-//                                        }
-//                                    }
-//                                    @Override
-//                                    public void onCancelled(DatabaseError databaseError) {
-//
-//                                    }
-//                                });
-//
-//
-//
-//                        }
-//                    });
-//
-////
-////                }
-////                database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date")
-//            }
-//        });
-//    }
+    public void dueDate(Books book) {
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.getKey().contains("Due Date")) {
+                    dueDate = "Due Date: " + dataSnapshot.getValue().toString();
+                    dbSource1.setResult(dueDate);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+    public void returnBook(final Books book){
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
+        database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(dataSnapshot.getValue().toString().contains(book.getTitle()))
+                {
+                    dataSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }

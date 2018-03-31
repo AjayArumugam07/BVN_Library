@@ -22,11 +22,10 @@
         <activity android:name=".CreateUser" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".DrawerMenu" />
-        <activity android:name=".Reservations" />
+        <activity android:name=".MyAccount" />
         <activity android:name=".Map" />
         <activity android:name=".Librarians" />
         <activity android:name=".SearchScreen"/>
-        <activity android:name=".AboutApp"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

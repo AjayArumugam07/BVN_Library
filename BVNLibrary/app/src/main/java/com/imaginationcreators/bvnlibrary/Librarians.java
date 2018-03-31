@@ -9,6 +9,8 @@ public class Librarians extends DrawerMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Add drawer menu option
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
         getLayoutInflater().inflate(R.layout.librarians_screen, contentFrameLayout);
     }

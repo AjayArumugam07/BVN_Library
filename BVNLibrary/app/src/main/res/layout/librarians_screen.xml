@@ -51,12 +51,14 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="195dp"
+        android:layout_width="185dp"
         android:layout_height="164dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/kari"
-        tools:layout_editor_absoluteX="196dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/kari" />
 
     <TextView
         android:id="@+id/TV1"
@@ -74,18 +76,22 @@
         android:id="@+id/textView3"
         android:layout_width="254dp"
         android:layout_height="123dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Hola! I'm Manuel and I run the computer section of the libary. Talk to me if you need to check out a computer or need help formating a document. In my free time I like to cook, fly an airplane, and play with my dog!"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:layout_editor_absoluteX="6dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="178dp"
         android:layout_height="184dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:text="Hello Everyone! My name is Kari and I run the sorting system at the library. Let me know if you need help finding a book or reserving a book.(You can also use the awesome app that we have!) Outside of reading books, I enjoy traveling, drawing, and spending time with friends."
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
-        tools:layout_editor_absoluteY="367dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

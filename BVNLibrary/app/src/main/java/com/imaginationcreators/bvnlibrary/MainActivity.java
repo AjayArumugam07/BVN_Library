@@ -17,17 +17,13 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.util.Date;
 
-
+// First class called when app opened
 public class MainActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        AssignBook assignBook = new AssignBook();
-//        assignBook.getOverdueBooks();
+        // Send code to authentication screen
         startActivity(new Intent(this, AuthScreen.class));
-
         finish();
     }
 }
