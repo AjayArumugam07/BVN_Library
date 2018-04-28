@@ -23,8 +23,13 @@
         android:icon="@mipmap/ic_people_outline_black_24dp"/>
 
     <item
+        android:id="@+id/bug"
+        android:title="Report a Bug"
+        android:icon="@mipmap/ic_bug_report_black_24dp" />
+
+    <item
         android:id="@+id/about"
-        android:title="About"
+        android:title="About App"
         android:icon="@mipmap/ic_info_outline_black_24dp"/>
     <item
         android:id="@+id/logout"
