@@ -11,7 +11,7 @@
     <string name="open">Open></string>
     <string name="close">Close</string>
     <string name="title_activity_main2">Main2Activity</string>
-    
+
     <string-array name="spinnerNames">
         <item>Any</item>
         <item>Title</item>

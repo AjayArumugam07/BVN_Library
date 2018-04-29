@@ -71,6 +71,10 @@ public class DrawerMenu extends AppCompatActivity {
                         startActivity(new Intent(DrawerMenu.this, Librarians.class));
                         finish();
                         break;
+                    case R.id.bug:
+                        startActivity(new Intent(DrawerMenu.this, ReportBug.class));
+                        finish();
+                        break;
                     case R.id.logout:
                         FirebaseAuth.getInstance().signOut();
                         LoginManager.getInstance().logOut();
