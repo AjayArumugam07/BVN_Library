@@ -45,6 +45,7 @@ public class AssignBook {
 
     public void checkoutReserveBook(final Books book) {
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
+            Log.d("Search", "T");
             database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").push().setValue(book.getTitle());
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(mAuth.getUid());
@@ -66,7 +67,8 @@ public class AssignBook {
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
         }
 
-        if (book.getAvailablity().equalsIgnoreCase(("Unavailable"))) {
+        else if (book.getAvailablity().equalsIgnoreCase(("Unavailable"))) {
+            Log.d("Search", "T1");
             database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Reserved Books").child("Reserved").setValue(book.getTitle());
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Number Of Holds").addValueEventListener(new ValueEventListener() {
                 @Override

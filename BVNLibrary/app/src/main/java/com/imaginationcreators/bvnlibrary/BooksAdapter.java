@@ -2,6 +2,7 @@ package com.imaginationcreators.bvnlibrary;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 .load(storage.getReferenceFromUrl(book.getUrl()))
                 .into(holder.cover);
 
-        final AssignBook assignBook1 = new AssignBook();
+        AssignBook assignBook1 = new AssignBook();
         assignBook1.setButtonText(holder, books, book);
 
         holder.reserveCheckout.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 AssignBook assignBook = new AssignBook();
                 switch(button.getText().toString()){
                     case "Checkout":
+                        Log.d("Search", "T1");
                         assignBook.checkoutReserveBook(book);
+                        Log.d("Search", "T2");
                         holder.reserveCheckout.setText("Return");
                         break;
                     /*case "Return":
