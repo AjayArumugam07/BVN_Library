@@ -1,7 +1,10 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
+import android.media.Image;
 import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,14 +22,13 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeScreen extends DrawerMenu {
     // Setup views
     SearchView searchView;
     Spinner spinner;
-
-    ImageView catchingFire, deathNile, mazeRunner;
-
-    public FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +42,9 @@ public class HomeScreen extends DrawerMenu {
         searchView = (SearchView) findViewById(R.id.searchBar);
         spinner = (Spinner) findViewById(R.id.spinner);
 
-        catchingFire = (ImageView) findViewById(R.id.catchingFire);
-        deathNile = (ImageView) findViewById(R.id.deathNile);
-        mazeRunner = (ImageView) findViewById(R.id.mazeRunner);
-
-
-        Glide.with(this)
-                .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/catching fire.jpg"))
-                .into(catchingFire);
-        Glide.with(this)
-                .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/deathonthenile.png"))
-                .into(deathNile);
-        Glide.with(this)
-                .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/mazerunner.png"))
-                .into(mazeRunner);
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        PageViewAdapter pageViewAdapter = new PageViewAdapter(this);
+        viewPager.setAdapter(pageViewAdapter);
 
         AssignBook assignBook = new AssignBook();
         //assignBook.getOverdueBooks();
