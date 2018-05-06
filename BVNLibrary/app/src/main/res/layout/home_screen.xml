@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/searchBar"
         app:layout_constraintEnd_toEndOf="parent" />
 

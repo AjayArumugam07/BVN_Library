@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class ReportBug extends DrawerMenu {
-    EditText emailFrom;
-    EditText report;
+    EditText name;
+    EditText email;
+    EditText phoneNumber;
     Button submit;
 
     @Override
@@ -24,31 +26,24 @@ public class ReportBug extends DrawerMenu {
         getLayoutInflater().inflate(R.layout.report_bug, contentFrameLayout);
 
         // Find views
-        emailFrom = (EditText) findViewById(R.id.email);
-        report = (EditText) findViewById(R.id.report);
+        name = (EditText) findViewById(R.id.name);
+        email = (EditText) findViewById(R.id.email);
+        phoneNumber = (EditText) findViewById(R.id.email);
         submit = (Button) findViewById(R.id.submit);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendEmail();
+                sendData(name.getText().toString(), email.getText().toString(), phoneNumber.getText().toString());
+                startActivity(new Intent(ReportBug.this, HomeScreen.class));
+                finish();
             }
         });
     }
 
-    private void sendEmail(){
-        Intent email = new Intent(Intent.ACTION_SEND);
-        email.setData(Uri.parse("bvnfblalibrary@gmail.com"));
-        email.setType("text");
+    private void sendData(String name, String email, String phoneNumber){
+        Toast.makeText(ReportBug.this, "Submitted", Toast.LENGTH_SHORT).show();
 
-        email.putExtra(Intent.EXTRA_EMAIL, emailFrom.getText().toString());
-        email.putExtra(Intent.EXTRA_SUBJECT, "Bug Report");
-        email.putExtra(Intent.EXTRA_TEXT, report.getText().toString());
-
-        try{
-            startActivity(Intent.createChooser(email, "Send mail..."));
-        } catch(Exception e){
-            Log.d("", "sendEmail: Email send failed");
-        }
+        // Ajay finish method using Strings passed in
     }
 }
