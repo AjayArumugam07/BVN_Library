@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class MyAccount extends DrawerMenu {
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                 Log.d("123456", "check1");
                 noBooksChecked.setText("No Books Checked Out");
+
                 assignBook.getUserCheckedoutBooks(search.searchSample);
                 assignBook.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
@@ -51,7 +53,10 @@ public class MyAccount extends DrawerMenu {
 
                         adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks);
                         recyclerView.setAdapter(adapter);
+                        assignBook.dbSource = new TaskCompletionSource<>();;
+
                     }
+
                 });
             }
         });

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
@@ -71,6 +72,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 holder.dueDate.setText(assignBook5.dueDate);
+                assignBook5.dbSource1 = new TaskCompletionSource<>();
             }
         });
 

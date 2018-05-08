@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -74,6 +75,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                     case "Checkout":
                         Log.d("Search", "T1");
                         assignBook.checkoutReserveBook(book);
+
                         Log.d("Search", "T2");
                         holder.reserveCheckout.setText("Return");
                         break;

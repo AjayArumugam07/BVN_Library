@@ -77,6 +77,7 @@ public class Search {
                     }
                 }
                 dbSource1.setResult(searchResults);
+                dbSource1 = new TaskCompletionSource<>();
             }
         });
         return searchResults;
@@ -101,6 +102,7 @@ public class Search {
                 }
 
                     dbSource.setResult(searchSample);
+                dbSource = new TaskCompletionSource<>();
 
             }
             @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}

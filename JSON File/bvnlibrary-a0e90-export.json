@@ -1,0 +1,206 @@
+{
+  "Books" : {
+    "Book" : {
+      "Artemis" : {
+        "Author_First_Name" : "Andy",
+        "Author_Last_Name" : "Weir",
+        "Availablility" : "Available",
+        "ISBN" : 9781543671353,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/artemis.png"
+      },
+      "Catching Fire" : {
+        "Author_First_Name" : "Suzanne",
+        "Author_Last_Name" : "Collins",
+        "Availablility" : "Available",
+        "ISBN" : 9781760159481,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/catching fire.jpg"
+      },
+      "Death on the Nile" : {
+        "Author_First_Name" : "Agatha",
+        "Author_Last_Name" : "Christie",
+        "Availablility" : "Available",
+        "ISBN" : 9780563389538,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/deathonthenile.png"
+      },
+      "Dragonfly in Amber" : {
+        "Author_First_Name" : "Diana",
+        "Author_Last_Name" : "Gabaldon",
+        "Availablility" : "Available",
+        "ISBN" : 9781490621579,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/dragonflyAmer.png"
+      },
+      "Frankenstein" : {
+        "Author_First_Name" : "Mary",
+        "Author_Last_Name" : "Shelley",
+        "Availablility" : "Available",
+        "ISBN" : 9781977841438,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/frankesnstie.png"
+      },
+      "Hiroshima" : {
+        "Author_First_Name" : "John",
+        "Author_Last_Name" : "Hersey",
+        "Availablility" : "Available",
+        "ISBN" : 9781406720693,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/hiroshima.png"
+      },
+      "In Cold Blood" : {
+        "Author_First_Name" : "Truman",
+        "Author_Last_Name" : "Capote",
+        "Availablility" : "Available",
+        "ISBN" : 9780784805060,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/incoldblood.png"
+      },
+      "Jane Eyre" : {
+        "Author_First_Name" : "Charlotte",
+        "Author_Last_Name" : "Bronte",
+        "Availablility" : "Available",
+        "ISBN" : 9781519133977,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/janeeyre.png"
+      },
+      "Mockingjay" : {
+        "Author_First_Name" : "Suzanne",
+        "Author_Last_Name" : "Collins",
+        "Availablility" : "Available",
+        "ISBN" : 9789000343034,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/mockingjay.png"
+      },
+      "Murder on the Orient Express" : {
+        "Author_First_Name" : "Agatha",
+        "Author_Last_Name" : "Christie",
+        "Availablility" : "Available",
+        "ISBN" : 9780008249670,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/murderontheorientexpress.png"
+      },
+      "Neuromancer" : {
+        "Author_First_Name" : "William",
+        "Author_Last_Name" : "Gibson",
+        "Availablility" : "Available",
+        "ISBN" : 9780307969958,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/nieromance.png"
+      },
+      "Origin" : {
+        "Author_First_Name" : "Dan",
+        "Author_Last_Name" : "Brown",
+        "Availablility" : "Available",
+        "ISBN" : 9783431039993,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/origin.png"
+      },
+      "Outlander" : {
+        "Author_First_Name" : "Diana",
+        "Author_Last_Name" : "Gabaldon",
+        "Availablility" : "Available",
+        "ISBN" : 9780385658683,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/outlander.png"
+      },
+      "Red Rising" : {
+        "Author_First_Name" : "Pierce",
+        "Author_Last_Name" : "Brown",
+        "Availablility" : "Available",
+        "ISBN" : 9788364030673,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/redrising.png"
+      },
+      "Silent Spring" : {
+        "Author_First_Name" : "Rachel",
+        "Author_Last_Name" : "Carson",
+        "Availablility" : "Available",
+        "ISBN" : 9789575835590,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/silentspring.png"
+      },
+      "Still Me" : {
+        "Author_First_Name" : "Jojo",
+        "Author_Last_Name" : "Moyes",
+        "Availablility" : "Available",
+        "ISBN" : 9780525530152,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/stillme.png"
+      },
+      "The ABC Murders" : {
+        "Author_First_Name" : "Agatha",
+        "Author_Last_Name" : "Christie",
+        "Availablility" : "Available",
+        "ISBN" : 9780563553922,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png"
+      },
+      "The Duke ans I" : {
+        "Author_First_Name" : "Julia",
+        "Author_Last_Name" : "Quinn",
+        "Availablility" : "Available",
+        "ISBN" : 9789944820813,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/dukeandi.png"
+      },
+      "The Magpie Murders" : {
+        "Author_First_Name" : "Susan",
+        "Author_Last_Name" : "Ryeland",
+        "Availablility" : "Available",
+        "ISBN" : 9781443452557,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/magpie.png"
+      },
+      "The Martian" : {
+        "Author_First_Name" : "Andy",
+        "Author_Last_Name" : "Weir",
+        "Availablility" : "Available",
+        "ISBN" : 9788466655057,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/martian.png"
+      },
+      "The Maze Runner" : {
+        "Author_First_Name" : "James",
+        "Author_Last_Name" : "Dashner",
+        "Availablility" : "Available",
+        "ISBN" : 9781910002506,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/mazerunner.png"
+      },
+      "The Omnivore's Dilemma" : {
+        "Author_First_Name" : "Micheal",
+        "Author_Last_Name" : "Pollan",
+        "Availablility" : "Available",
+        "ISBN" : 9781415928721,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/omnivoresdilemna.png"
+      },
+      "The Westing Game" : {
+        "Author_First_Name" : "Ellen",
+        "Author_Last_Name" : "Raskin",
+        "Availablility" : "Available",
+        "ISBN" : 9781583031094,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/magpie.png"
+      },
+      "Treasure Island" : {
+        "Author_First_Name" : "Robert",
+        "Author_Last_Name" : "Louis",
+        "Availablility" : "Available",
+        "ISBN" : 9780199193295,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/treasureisland.png"
+      },
+      "When Breath Becomes Air" : {
+        "Author_First_Name" : "Paul",
+        "Author_Last_Name" : "Kalanithi",
+        "Availablility" : "Available",
+        "ISBN" : 9781524708146,
+        "Number Of Holds" : "0",
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/whenbreathbecomesair.png"
+      }
+    }
+  }
+}

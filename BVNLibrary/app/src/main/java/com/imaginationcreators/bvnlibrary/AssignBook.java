@@ -37,16 +37,16 @@ public class AssignBook {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public String dueDate;
-    int j = 0;
 
-    public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>>dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
-    public TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
+
 
     public void checkoutReserveBook(final Books book) {
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
             Log.d("Search", "T");
             database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").push().setValue(book.getTitle());
+            Log.d("Search", "T7");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(mAuth.getUid());
             Date date = new Date();
@@ -66,29 +66,7 @@ public class AssignBook {
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Check Out Date").setValue(dateFormat.format(date));
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
         }
-
-        else if (book.getAvailablity().equalsIgnoreCase(("Unavailable"))) {
-            Log.d("Search", "T1");
-            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Reserved Books").child("Reserved").setValue(book.getTitle());
-            database.getReference().child("Books").child("Book").child(book.getTitle()).child("Number Of Holds").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String numberOfHolds = dataSnapshot.getValue().toString();
-                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Number Of Holds").removeEventListener(this);
-                    int numberOfHoldsInteger = Integer.parseInt(numberOfHolds);
-                    numberOfHoldsInteger++;
-                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Number Of Holds").setValue(numberOfHoldsInteger);
-                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(numberOfHolds).setValue(mAuth.getUid());
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        } else {
+         else {
             Log.d("Search", "Text in Database doesn't match: " + book.getAvailablity());
         }
 
@@ -149,7 +127,7 @@ public class AssignBook {
                 Log.d("123456789", reservedBooks.size() + " hi");
 
                 dbSource.setResult(reservedBooks);
-
+                dbSource = new TaskCompletionSource<>();
             }
 
             @Override
@@ -177,6 +155,7 @@ public class AssignBook {
                 if (dataSnapshot.getKey().contains("Due Date")) {
                     dueDate = "Due Date: " + dataSnapshot.getValue().toString();
                     dbSource1.setResult(dueDate);
+                    dbSource1 = new TaskCompletionSource<>();
                 }
             }
 
@@ -203,6 +182,7 @@ public class AssignBook {
         });
     }
     public void returnBook(final Books book){
+        Log.d(TAG, "returnBook: asdf");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").addChildEventListener(new ChildEventListener() {
