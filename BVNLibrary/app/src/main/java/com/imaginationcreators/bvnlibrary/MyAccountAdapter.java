@@ -78,9 +78,9 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
             @Override
             public void onClick(View v) {
                 assignBook5.returnBook(book);
-                //books.remove(position);
-                //notifyItemRemoved(position);
-                if(books.size() == 0){
+                //books.remove(position); // just commented
+                //notifyItemRemoved(position); // just commented
+                if(books.size() == 1){
                     Toast.makeText(mCtx, "No More Books Checked Out", Toast.LENGTH_SHORT).show();
 
                     mCtx.startActivity(new Intent(mCtx, HomeScreen.class));
@@ -88,10 +88,15 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
 
 
                 }
+                else{
+                    Toast.makeText(mCtx, book.getTitle() + " returned", Toast.LENGTH_SHORT).show();
+
+                    mCtx.startActivity(new Intent(mCtx, MyAccount.class));
+                    holder.reserveCheckout.setOnClickListener(null);
+                }
             }
         });
     }
-    // hjghj
 
     // Return total number of books to be displayed
     @Override
