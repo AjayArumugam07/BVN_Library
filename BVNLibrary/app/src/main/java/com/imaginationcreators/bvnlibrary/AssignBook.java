@@ -71,7 +71,6 @@ public class AssignBook {
          else {
             Log.d("donkey", "Text in Database doesn't match: " + book.getAvailablity());
         }
-
     }
 
     public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
