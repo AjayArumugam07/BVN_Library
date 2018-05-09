@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +25,9 @@ public class SearchScreen extends DrawerMenu {
     RecyclerView recyclerView;
     BooksAdapter adapter;
 
+    SearchView searchView;
+    Spinner spinner;
+
     TextView noResults;
 
     private ArrayList<Books> books;
@@ -31,6 +37,9 @@ public class SearchScreen extends DrawerMenu {
         // Add drawer menu option
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.frameContent);
         getLayoutInflater().inflate(R.layout.search_screen, contentFrameLayout);
+
+        searchView = (SearchView) findViewById(R.id.searchBar);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         noResults = (TextView) findViewById(R.id.noResults);
 
@@ -60,5 +69,29 @@ public class SearchScreen extends DrawerMenu {
                 recyclerView.setAdapter(adapter);
             }
         });
+
+        // Setup search bar and spinner dropdown
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(SearchScreen.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerNames));
+        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(listAdapter);
+        searchView.setOnQueryTextListener(searchListener);
     }
+
+    SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            // Start new activity when search entered passing search text and spinner value
+            Intent openSearch = new Intent(SearchScreen.this, SearchScreen.class);
+            openSearch.putExtra("TitleTag", query);
+            openSearch.putExtra("SearchByTag", spinner.getSelectedItem().toString());
+            startActivity(new Intent(openSearch));
+            finish();
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
 }
