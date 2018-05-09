@@ -76,13 +76,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                         Log.d("Search", "T1");
                         assignBook.checkoutReserveBook(book);
 
-                        Log.d("Search", "T2");
+                        Log.d("donkey", "checked out");
                         holder.reserveCheckout.setText("Return");
                         break;
-                    /*case "Return":
+                    case "Return":
+                        Log.d("donkey", "returned");
                         assignBook.returnBook(book);
                         holder.reserveCheckout.setText("Checkout");
-                        break;*/
+                        break;
                 }
             }
         });

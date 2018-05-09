@@ -40,12 +40,14 @@ public class AssignBook {
 
     public TaskCompletionSource<ArrayList<Books>>dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
-
+    public TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
+    public boolean check = false;
+    public ChildEventListener childEventListener;
 
     public void checkoutReserveBook(final Books book) {
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
-            Log.d("Search", "T");
-            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").push().setValue(book.getTitle());
+            Log.d("donkey", "A");
+            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").child(book.getTitle()).setValue("1");
             Log.d("Search", "T7");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(mAuth.getUid());
@@ -67,7 +69,7 @@ public class AssignBook {
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
         }
          else {
-            Log.d("Search", "Text in Database doesn't match: " + book.getAvailablity());
+            Log.d("donkey", "Text in Database doesn't match: " + book.getAvailablity());
         }
 
     }
@@ -115,7 +117,7 @@ public class AssignBook {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.d("12345678910", dataSnapshot1.getValue().toString());
                     for (int i = 0; i < searchSample.size(); i++) {
-                        if (dataSnapshot1.getValue().toString().contains(searchSample.get(i).getTitle())) {
+                        if (dataSnapshot1.getKey().toString().contains(searchSample.get(i).getTitle())) {
                             reservedBooks.add(searchSample.get(i));
                             Log.d("123456789", searchSample.get(i).getTitle());
                         }
@@ -181,39 +183,11 @@ public class AssignBook {
 
         });
     }
+
     public void returnBook(final Books book){
         Log.d(TAG, "returnBook: asdf");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
-        database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.getValue().toString().contains(book.getTitle()))
-                {
-                    dataSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
     }
 }

@@ -22,7 +22,7 @@ public class PageViewAdapter extends PagerAdapter {
 
     private Context mContext;
 
-    private int[] ids = new int[] {R.drawable.danny, R.drawable.kari, R.drawable.manuel};
+    private int[] ids = new int[] {R.drawable.nineteen_eightyfour, R.drawable.deep_freeze, R.drawable.white_fang};
 
     PageViewAdapter(Context context){
         mContext = context;

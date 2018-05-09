@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.media.Image;
 import android.net.Uri;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,9 @@ public class HomeScreen extends DrawerMenu {
         ViewPager viewPager = findViewById(R.id.viewPager);
         PageViewAdapter pageViewAdapter = new PageViewAdapter(this);
         viewPager.setAdapter(pageViewAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(viewPager, true);
 
         AssignBook assignBook = new AssignBook();
         //assignBook.getOverdueBooks();
