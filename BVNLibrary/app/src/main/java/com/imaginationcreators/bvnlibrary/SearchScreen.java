@@ -46,7 +46,7 @@ public class SearchScreen extends DrawerMenu {
         // Create search object
         final Search search = new Search();
         // Call search method passing in search query and filter based on strings passed from intent
-        books = search.searchFromSample(getIntent().getStringExtra("TitleTag"), getIntent().getStringExtra("SearchByTag"));
+        books = search.searchFromSample(getIntent().getStringExtra("TitleTag").toLowerCase(), getIntent().getStringExtra("SearchByTag"));
 
         // Add listener for when search is complete
         search.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {

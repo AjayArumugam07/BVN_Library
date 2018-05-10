@@ -43,39 +43,43 @@ public class Search {
             Log.d(TAG, "Search: DB source is null");
         }
     }
-    public ArrayList searchFromSample(String title, final String searchType)
+    public ArrayList searchFromSample(final String title, final String searchType)
     {
         Log.d(TAG, "1");
         setLocalDatabaseForSearchTitle();
-        title = title.toLowerCase();
-        final String[] titleArray = title.split(" ");
+
+
         dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                for(int i = 0; i < titleArray.length; i++)
-                {
+
+
                     for(int j = 0; j < searchSample.size(); j++)
                     {
-                        if (searchType.equals("Title") && searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]))
+                        if (searchType.equals("Title") && searchSample.get(j).getTitle().toLowerCase().contains(title))
+                        {
+
+                            if(!searchResults.contains(searchSample.get(j))){
+                                searchResults.add(searchSample.get(j));
+                                Log.d("george orwell", searchSample.get(j).getTitle());
+                            }
+
+
+                        }
+                        else if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(title)))
                         {
                             searchResults.add(searchSample.get(j));
                             Log.d(TAG, searchSample.get(j).getTitle());
-                            Log.d(TAG, "onCompltesete: " + titleArray.length);
                         }
-                        if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])))
+                        else if (searchType.equals("Any") && ((searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) ||
+                                searchSample.get(j).getAuthorLastName().toLowerCase().contains(title)) ||
+                                searchSample.get(j).getTitle().toLowerCase().contains(title)))
                         {
                             searchResults.add(searchSample.get(j));
-                            Log.d(TAG, searchSample.get(j).getTitle());
-                        }
-                        if (searchType.equals("Any") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(titleArray[i]) ||
-                                searchSample.get(j).getAuthorLastName().toLowerCase().contains(titleArray[i])) ||
-                                searchSample.get(j).getTitle().toLowerCase().contains(titleArray[i]))
-                        {
-                            searchResults.add(searchSample.get(j));
-                            //Log.d(TAG, searchSample.get(j).getTitle());
+
                         }
                     }
-                }
+
                 dbSource1.setResult(searchResults);
                 dbSource1 = new TaskCompletionSource<>();
             }

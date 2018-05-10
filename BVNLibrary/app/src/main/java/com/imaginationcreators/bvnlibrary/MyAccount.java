@@ -53,7 +53,7 @@ public class MyAccount extends DrawerMenu {
 
                         adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks);
                         recyclerView.setAdapter(adapter);
-                        assignBook.dbSource = new TaskCompletionSource<>();;
+                        assignBook.dbSource = new TaskCompletionSource<>();
 
                     }
 

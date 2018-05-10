@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,10 +38,12 @@ public class AssignBook {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public String dueDate;
+    public String dueDate1;
 
     public TaskCompletionSource<ArrayList<Books>>dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
-    public TaskCompletionSource<String> dbSource2 = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>> dbSource2 = new TaskCompletionSource<>();
+    final ArrayList<Books> overdueBooks = new ArrayList<Books>();
     public boolean check = false;
     public ChildEventListener childEventListener;
 
@@ -155,6 +158,7 @@ public class AssignBook {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.getKey().contains("Due Date")) {
                     dueDate = "Due Date: " + dataSnapshot.getValue().toString();
+                    dueDate1 = dataSnapshot.getValue().toString();
                     dbSource1.setResult(dueDate);
                     dbSource1 = new TaskCompletionSource<>();
                 }
@@ -188,5 +192,55 @@ public class AssignBook {
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
+    }
+
+    public void getOverDueBooks() throws Exception{
+        final Search search = new Search();
+        search.setLocalDatabaseForSearchTitle();
+
+        search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+
+
+                getUserCheckedoutBooks(search.searchSample);
+                dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                        for(Books book : reservedBooks){
+                            dueDate(book);
+                            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                            Date date1 = new Date();
+                            Date date3 = new Date();
+
+
+                            Date date2 = new Date();
+                            String s = sdf.format(date2);
+
+                            try {
+                                date1 = sdf.parse(dueDate1);
+                                date3 = sdf.parse(s);
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            if(date1.after(date3)){
+                                overdueBooks.add(book);
+                            }
+
+                        }
+
+                        dbSource2.setResult(overdueBooks);
+                        dbSource2 = new TaskCompletionSource<>();
+                        dbSource = new TaskCompletionSource<>();
+
+                    }
+
+                });
+            }
+        });
+
     }
 }
