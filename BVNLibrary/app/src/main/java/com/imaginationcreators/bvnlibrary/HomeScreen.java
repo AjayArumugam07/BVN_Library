@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.media.Image;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,8 @@ import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -58,6 +61,19 @@ public class HomeScreen extends DrawerMenu {
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(listAdapter);
         searchView.setOnQueryTextListener(searchListener);
+
+
+        final AssignBook assignBook1 = new AssignBook();
+        assignBook1.getOverdueBooks();
+        assignBook1.dbSource2.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                for(int i = 0; i < assignBook1.overdueBooks.size(); i ++){
+                    Log.d("john", assignBook1.overdueBooks.get(i).getTitle());
+                }
+            }
+        });
+
     }
 
     SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {

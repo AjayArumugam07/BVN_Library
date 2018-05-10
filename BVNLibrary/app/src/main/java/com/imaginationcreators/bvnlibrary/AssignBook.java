@@ -152,7 +152,7 @@ public class AssignBook {
         });
         return reservedBooks;
     }
-    public void dueDate(Books book) {
+    public void dueDate(final Books book) {
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -161,6 +161,30 @@ public class AssignBook {
                     dueDate1 = dataSnapshot.getValue().toString();
                     dbSource1.setResult(dueDate);
                     dbSource1 = new TaskCompletionSource<>();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+                    Date date1 = new Date();
+                    Date date3 = new Date();
+
+
+                    Date date2 = new Date();
+                    String k = sdf.format(date2);
+
+                    try {
+
+                        date1 = sdf.parse(dueDate1);
+
+                        date3 = sdf.parse(k);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(date3.after(date1)){
+                        overdueBooks.add(book);
+                        Log.d("John1", book.getTitle());
+                    }
                 }
             }
 
@@ -194,7 +218,7 @@ public class AssignBook {
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
     }
 
-    public void getOverDueBooks() throws Exception{
+    public void getOverdueBooks() {
         final Search search = new Search();
         search.setLocalDatabaseForSearchTitle();
 
@@ -207,28 +231,9 @@ public class AssignBook {
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                        for(Books book : reservedBooks){
+                        for(final Books book : reservedBooks){
                             dueDate(book);
-                            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-                            Date date1 = new Date();
-                            Date date3 = new Date();
-
-
-                            Date date2 = new Date();
-                            String s = sdf.format(date2);
-
-                            try {
-                                date1 = sdf.parse(dueDate1);
-                                date3 = sdf.parse(s);
-
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            if(date1.after(date3)){
-                                overdueBooks.add(book);
-                            }
 
                         }
 
