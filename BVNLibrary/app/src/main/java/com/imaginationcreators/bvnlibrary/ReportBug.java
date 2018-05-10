@@ -11,12 +11,19 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class ReportBug extends DrawerMenu {
     // Declare views
     EditText name;
     EditText email;
     EditText phoneNumber;
+    EditText report;
     Button submit;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,7 @@ public class ReportBug extends DrawerMenu {
         name = (EditText) findViewById(R.id.name);
         email = (EditText) findViewById(R.id.email);
         phoneNumber = (EditText) findViewById(R.id.email);
+        report = (EditText) findViewById(R.id.report);
         submit = (Button) findViewById(R.id.submit);
 
         // Set on click listener for button
@@ -37,7 +45,7 @@ public class ReportBug extends DrawerMenu {
             @Override
             public void onClick(View v) {
                 // Call method to send submitted data
-                sendData(name.getText().toString(), email.getText().toString(), phoneNumber.getText().toString());
+                sendData(name.getText().toString(), email.getText().toString(), phoneNumber.getText().toString(), report.getText().toString());
 
                 // Go to home screen
                 startActivity(new Intent(ReportBug.this, HomeScreen.class));
@@ -47,9 +55,11 @@ public class ReportBug extends DrawerMenu {
     }
 
     // Send data to Firebase
-    private void sendData(String name, String email, String phoneNumber){
+    private void sendData(String name, String email, String phoneNumber, String report){
         Toast.makeText(ReportBug.this, "Submitted", Toast.LENGTH_SHORT).show();
 
-        // Ajay finish method using Strings passed in
+         database.getReference().child("Bug Report").child(name).child("Email").setValue(email);
+         database.getReference().child("Bug Report").child(name).child("Phone Number").setValue(phoneNumber);
+         database.getReference().child("Bug Report").child(name).child("report").setValue(report);
     }
 }
