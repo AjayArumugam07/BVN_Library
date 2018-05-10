@@ -8,8 +8,8 @@
         android:icon="@mipmap/ic_home_black_24dp"/>
 
     <item
-        android:id="@+id/myAccount"
-        android:title="My Account"
+        android:id="@+id/myBooks"
+        android:title="My Books"
         android:icon="@mipmap/ic_account_circle_black_24dp"/>
 
     <item
