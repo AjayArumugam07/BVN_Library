@@ -27,13 +27,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthScreen extends AppCompatActivity {
+    // Log tag
     private static final String TAG = "AuthScreen";
+
+    // Declare views
     private Button signIn;
     private LoginButton loginButton;
     private EditText username;
     private EditText password;
     private TextView registerUser;
     private ProgressBar progressBar;
+
+    // Create Firebase variables
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
 
@@ -42,6 +47,7 @@ public class AuthScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authentication_screen);
 
+        // Find views
         signIn = (Button) findViewById(R.id.signIn);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -49,48 +55,44 @@ public class AuthScreen extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar_SignIn);
         loginButton = (LoginButton) findViewById(R.id.login_Button_Facebook);
 
+        // Set up authentication
         mAuth = FirebaseAuth.getInstance();
 
+        // Set on click listeners
         signIn.setOnClickListener(listener);
         registerUser.setOnClickListener(listener);
 
+        // Manages callbacks into Facebook SDK
         mCallbackManager = CallbackManager.Factory.create();
 
+        // Setup Facebook login button
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                // Communication with Facebook for authentication of user
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                // ...
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                // ...
             }
         });
-
     }
 
-
-
+    // Go to home screen after successful Facebook login
     private void updateUI()
     {
-        Toast.makeText(AuthScreen.this, "Logged In", Toast.LENGTH_LONG);
+        Toast.makeText(AuthScreen.this, "Login Success", Toast.LENGTH_LONG);
         finish();
         startActivity(new Intent(this, HomeScreen.class));
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -98,18 +100,14 @@ public class AuthScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(AuthScreen.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
     }
@@ -122,63 +120,66 @@ public class AuthScreen extends AppCompatActivity {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    // Listener for sign in and create account buttons
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if (view == registerUser) {
+                // Go to create user screen
                 startActivity(new Intent(AuthScreen.this, CreateUser.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
             if (view == signIn) {
-                if (loginSucess(username.getText().toString().trim(), password.getText().toString())) {
-                    Log.d(TAG, "onClick: Login Success");
-                    Toast.makeText(AuthScreen.this, "Login Success", Toast.LENGTH_SHORT).show();
-                    // TODO go to main menu from here
-                } else {
-                    Log.d(TAG, "onClick: Login fail");
-                    Toast.makeText(AuthScreen.this, "Login Fail", Toast.LENGTH_SHORT).show();
-
-                }
+                loginSucess(username.getText().toString().trim(), password.getText().toString());
             }
         }
-
-
     };
 
-    private boolean loginSucess(String email, String password) {
-
+    // returns true if login is success, false for fail
+    private void loginSucess(String email, String password) {
+        // Checks if user entered email
         if (email.isEmpty()) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
             username.requestFocus();
-            return false;
+            return;
         }
+
+        // Checks if user entered password
         if (password.isEmpty()) {
             Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
             this.password.requestFocus();
-            return false;
+            return;
         }
+
+        // Checks if user entered valid email
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
             username.requestFocus();
-            return false;
+            return;
         }
+
+        // Checks if password is more than 6 characters
         if (password.length() < 6) {
             Toast.makeText(this, "Password has to be a minimum of 6 characters", Toast.LENGTH_SHORT).show();
             this.password.requestFocus();
-            return false;
+            return;
         }
+
+        // Displays progress bar and attempts to authenticate user
         progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // Display success message if login succeeded and go to home screen
+                    Toast.makeText(AuthScreen.this, "Login Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AuthScreen.this, HomeScreen.class));
-
+                    finish();
                 } else {
+                    // Display error message if login failed and return true
                     Toast.makeText(AuthScreen.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }
         });
-        return true;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class ReportBug extends DrawerMenu {
+    // Declare views
     EditText name;
     EditText email;
     EditText phoneNumber;
@@ -31,16 +32,21 @@ public class ReportBug extends DrawerMenu {
         phoneNumber = (EditText) findViewById(R.id.email);
         submit = (Button) findViewById(R.id.submit);
 
+        // Set on click listener for button
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Call method to send submitted data
                 sendData(name.getText().toString(), email.getText().toString(), phoneNumber.getText().toString());
+
+                // Go to home screen
                 startActivity(new Intent(ReportBug.this, HomeScreen.class));
                 finish();
             }
         });
     }
 
+    // Send data to Firebase
     private void sendData(String name, String email, String phoneNumber){
         Toast.makeText(ReportBug.this, "Submitted", Toast.LENGTH_SHORT).show();
 
