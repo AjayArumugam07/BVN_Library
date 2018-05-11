@@ -1,11 +1,7 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,16 +11,13 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 import static android.content.ContentValues.TAG;
@@ -48,7 +41,8 @@ public class AssignBook {
     // Declare overdue book List
     final ArrayList<Books> overdueBooks = new ArrayList<Books>();
 
-    // Declare reserved books list
+    // Declare book lists
+    public final ArrayList<Books> userBooks = new ArrayList<Books>();
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
     // Checkout or reserve book
@@ -94,19 +88,13 @@ public class AssignBook {
         // If book is available, give user option to check out book
         if (book.getAvailablity().contains("Available")) {
             holder.reserveCheckout.setText("Checkout");
-            holder.reserveCheckout.setEnabled(true);
             return;
         }
 
-        // If not, disable button
-        else {
-            holder.reserveCheckout.setText("Unavailable");
-            holder.reserveCheckout.setEnabled(false);
-        }
     }
 
     // Get all the books the user has checked out
-    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample, final boolean addUnknownBooks) {
+    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample) {
         // Start pulling all the books the user has checked out
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").addChildEventListener(new ChildEventListener() {
             @Override
@@ -115,18 +103,13 @@ public class AssignBook {
                     for (int i = 0; i < searchSample.size(); i++) {
                         // For each book pulled, check if it is in the sample
                         if (dataSnapshot1.getKey().toString().contains(searchSample.get(i).getTitle())) {
-                            reservedBooks.add(searchSample.get(i));
+                            userBooks.add(searchSample.get(i));
                         }
                     }
                 }
 
-                // If user hasn't checked out any books, add a new book to trigger on complete listeners
-                if (addUnknownBooks && reservedBooks.size() == 0) {
-                    reservedBooks.add(new Books());
-                }
-
                 // Set result of db source and reset db source
-                dbSource.setResult(reservedBooks);
+                dbSource.setResult(userBooks);
                 dbSource = new TaskCompletionSource<>();
             }
 
@@ -146,7 +129,7 @@ public class AssignBook {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return reservedBooks;
+        return userBooks;
     }
 
     // Check if a book is overdue
@@ -224,12 +207,12 @@ public class AssignBook {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                 // Get books checked out by user
-                getUserCheckedoutBooks(search.searchSample, false);
+                getUserCheckedoutBooks(search.searchSample);
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                         // Check if a book is overdue
-                        for (final Books book : reservedBooks) {
+                        for (final Books book : userBooks) {
                             dueDate(book);
                         }
                         if (overdueBooks.size() == 0) {
@@ -245,6 +228,14 @@ public class AssignBook {
                 });
             }
         });
+    }
+
+    private void getUserReservedBooks(){
+
+    }
+
+    public void reserveBook(Books book){
+        database.getReference().child("Books")
     }
 
     // Remove hold from book

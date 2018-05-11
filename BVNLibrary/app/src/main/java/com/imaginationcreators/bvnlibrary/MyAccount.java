@@ -43,7 +43,7 @@ public class MyAccount extends DrawerMenu {
                 noBooksChecked.setText("No Books Checked Out");
 
                 // Get all the book's the user has checked out
-                assignBook.getUserCheckedoutBooks(search.searchSample, false);
+                assignBook.getUserCheckedoutBooks(search.searchSample);
                 assignBook.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
@@ -62,7 +62,7 @@ public class MyAccount extends DrawerMenu {
                             @Override
                             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                                 // Create adapter for recycler view based on the user's books and overdue books
-                                adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks, assignBook2.overdueBooks);
+                                adapter = new MyAccountAdapter(MyAccount.this, assignBook.userBooks, assignBook2.overdueBooks);
 
                                 // Attach adapter to recycler view
                                 recyclerView.setAdapter(adapter);
