@@ -72,9 +72,9 @@ public class CreateUser extends AppCompatActivity {
     // Method to create account, returns true for success and false for fail
     private boolean createNewAccount(String email, String password) {
         // Get user's name from text field
-       final String name = nameOfUser.getText().toString();
+        final String name = nameOfUser.getText().toString();
 
-       // Test for valid names, emails and passwords greater than 6 characters
+        // Test for valid names, emails and passwords greater than 6 characters
         if (email.isEmpty()) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
             return false;

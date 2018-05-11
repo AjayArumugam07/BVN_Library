@@ -82,8 +82,7 @@ public class AuthScreen extends AppCompatActivity {
     }
 
     // Go to home screen after successful Facebook login
-    private void updateUI()
-    {
+    private void updateUI() {
         Toast.makeText(AuthScreen.this, "Login Success", Toast.LENGTH_LONG);
         finish();
         startActivity(new Intent(this, HomeScreen.class));

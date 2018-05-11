@@ -91,7 +91,7 @@ public class DrawerMenu extends AppCompatActivity {
         email = (TextView) headerView.findViewById(R.id.email);
 
         // Display user info in drawer menu header
-        if(user != null){
+        if (user != null) {
             name.setText(user.getDisplayName());
             email.setText(user.getEmail());
         }

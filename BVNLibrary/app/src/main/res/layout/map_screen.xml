@@ -22,5 +22,4 @@
         app:srcCompat="@drawable/libmap" />
 
 
-
 </android.support.constraint.ConstraintLayout>

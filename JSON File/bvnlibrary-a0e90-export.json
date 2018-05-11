@@ -23,7 +23,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781543671353,
         "Number Of Holds" : 0,
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/artemis.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Catching Fire" : {
         "Author_First_Name" : "Suzanne",
@@ -31,7 +31,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781760159481,
         "Number Of Holds" : 0,
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/catching fire.jpg"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Death on the Nile" : {
         "Author_First_Name" : "Agatha",
@@ -39,7 +39,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780563389538,
         "Number Of Holds" : 0,
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/deathonthenile.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Deep Freeze" : {
         "Author_First_Name" : "Philipp",
@@ -55,7 +55,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781490621579,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/dragonflyAmer.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Frankenstein" : {
         "Author_First_Name" : "Mary",
@@ -63,7 +63,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781977841438,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/frankesnstie.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Hiroshima" : {
         "Author_First_Name" : "John",
@@ -71,7 +71,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781406720693,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/hiroshima.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "In Cold Blood" : {
         "Author_First_Name" : "Truman",
@@ -79,7 +79,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780784805060,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/incoldblood.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Jane Eyre" : {
         "Author_First_Name" : "Charlotte",
@@ -87,7 +87,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781519133977,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/janeeyre.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Mockingjay" : {
         "Author_First_Name" : "Suzanne",
@@ -95,7 +95,7 @@
         "Availablility" : "Available",
         "ISBN" : 9789000343034,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/mockingjay.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Murder on the Orient Express" : {
         "Author_First_Name" : "Agatha",
@@ -103,7 +103,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780008249670,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/murderontheorientexpress.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Neuromancer" : {
         "Author_First_Name" : "William",
@@ -111,7 +111,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780307969958,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/nieromance.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Origin" : {
         "Author_First_Name" : "Dan",
@@ -119,7 +119,7 @@
         "Availablility" : "Available",
         "ISBN" : 9783431039993,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/origin.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Outlander" : {
         "Author_First_Name" : "Diana",
@@ -127,7 +127,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780385658683,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/outlander.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Red Rising" : {
         "Author_First_Name" : "Pierce",
@@ -135,7 +135,7 @@
         "Availablility" : "Available",
         "ISBN" : 9788364030673,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/redrising.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Silent Spring" : {
         "Author_First_Name" : "Rachel",
@@ -143,7 +143,7 @@
         "Availablility" : "Available",
         "ISBN" : 9789575835590,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/silentspring.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Still Me" : {
         "Author_First_Name" : "Jojo",
@@ -151,7 +151,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780525530152,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/stillme.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The ABC Murders" : {
         "Author_First_Name" : "Agatha",
@@ -159,15 +159,15 @@
         "Availablility" : "Available",
         "ISBN" : 9780563553922,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
-      "The Duke ans I" : {
+      "The Duke and I" : {
         "Author_First_Name" : "Julia",
         "Author_Last_Name" : "Quinn",
         "Availablility" : "Available",
         "ISBN" : 9789944820813,
-        "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/dukeandi.png"
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The Hound of the Baskervilles" : {
         "Author_First_Name" : "Conan",
@@ -183,7 +183,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781443452557,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/magpie.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The Martian" : {
         "Author_First_Name" : "Andy",
@@ -191,7 +191,7 @@
         "Availablility" : "Available",
         "ISBN" : 9788466655057,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/martian.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The Maze Runner" : {
         "Author_First_Name" : "James",
@@ -199,7 +199,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781910002506,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/mazerunner.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The Omnivore's Dilemma" : {
         "Author_First_Name" : "Micheal",
@@ -207,7 +207,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781415928721,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/omnivoresdilemna.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "The Westing Game" : {
         "Author_First_Name" : "Ellen",
@@ -215,7 +215,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781583031094,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/magpie.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "Treasure Island" : {
         "Author_First_Name" : "Robert",
@@ -223,7 +223,7 @@
         "Availablility" : "Available",
         "ISBN" : 9780199193295,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/treasureisland.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "When Breath Becomes Air" : {
         "Author_First_Name" : "Paul",
@@ -231,7 +231,7 @@
         "Availablility" : "Available",
         "ISBN" : 9781524708146,
         "Number Of Holds" : "0",
-        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/whenbreathbecomesair.png"
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/Androidapp.png"
       },
       "White Fang" : {
         "Author_First_Name" : "Jack",
@@ -240,26 +240,6 @@
         "ISBN" : 9781421814728,
         "Number Of Holds" : 0,
         "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/white_fang.jpg"
-      }
-    }
-  },
-  "Bug Report" : {
-    "Ajay" : {
-      "Email" : "ajayvairam.krishna@gmail.com",
-      "Phone Number" : "ajayvairam.krishna@gmail.com",
-      "report" : "bugless app\n"
-    }
-  },
-  "Users" : {
-    "40bUW0ntn8hkyeV5xtxi9VEfPmf1" : {
-      "Checked Out" : {
-        "checkout" : {
-          "Anthem" : "1",
-          "Artemis" : "1",
-          "Catching Fire" : "1",
-          "Death on the Nile" : "1",
-          "Deep Freeze" : "1"
-        }
       }
     }
   }

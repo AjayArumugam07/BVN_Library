@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 // Adapter to be used with recylcer view in displaying list of books on search screen
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder> {
     // Create views
     private Context mCtx;
     private List<Books> books;
@@ -57,7 +57,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
 
         // Set title and author on text views
         holder.title.setText(book.getTitle());
-        String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
+        String author = book.getAuthorLastName() + ", " + book.getAuthorFirstName();
         holder.author.setText(author);
 
         // Add image of book cover
@@ -76,7 +76,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
             public void onClick(View v) {
                 Button button = (Button) v;
                 AssignBook assignBook = new AssignBook();
-                switch(button.getText().toString()){
+                switch (button.getText().toString()) {
                     case "Checkout":
                         // Checkout book to user and change text of button to return
                         assignBook.checkoutReserveBook(book);
@@ -99,7 +99,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
     }
 
     // Class to hold books
-    public class BooksViewHolder extends RecyclerView.ViewHolder{
+    public class BooksViewHolder extends RecyclerView.ViewHolder {
         // Creates fields to be displayed
         ImageView cover;
         TextView title, author;

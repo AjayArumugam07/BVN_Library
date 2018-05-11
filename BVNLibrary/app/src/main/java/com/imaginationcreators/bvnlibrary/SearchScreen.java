@@ -31,6 +31,7 @@ public class SearchScreen extends DrawerMenu {
     TextView noResults;
 
     private ArrayList<Books> books;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +53,9 @@ public class SearchScreen extends DrawerMenu {
         search.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                if(books.size() == 0){
+                if (books.size() == 0) {
                     noResults.setText("No search results");
-                }
-                else{
+                } else {
                     noResults.setText("");
                 }
 

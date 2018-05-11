@@ -78,8 +78,8 @@
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="phone"
-        android:textSize="14sp"
         android:maxLength="10"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/email"
         app:layout_constraintStart_toStartOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/email" />

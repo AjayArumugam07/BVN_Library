@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 // Recycler view adapter for list of books in my account
-public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ReservationsViewHolder>{
+public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ReservationsViewHolder> {
     // Create Views
     private Context mCtx;
     private List<Books> books;
@@ -60,7 +60,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
 
         // Set title and author in layout
         holder.title.setText(book.getTitle());
-        String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
+        String author = book.getAuthorLastName() + ", " + book.getAuthorFirstName();
         holder.author.setText(author);
         holder.returnBook.setText("Return");
 
@@ -77,8 +77,8 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 // Check if the current book is an overdue book
-                for(int i = 0; i < overdueBooks.size(); i++){
-                    if(overdueBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())){
+                for (int i = 0; i < overdueBooks.size(); i++) {
+                    if (overdueBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())) {
                         // Set text to overdue and change text color to red to remind user a book is overdue
                         holder.dueDate.setTextColor(Color.RED);
                         holder.dueDate.setText("OVERDUE");
@@ -86,7 +86,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
                 }
 
                 // If the book is not overdue, display the due date
-                if(!holder.dueDate.getText().toString().equalsIgnoreCase("OVERDUE")) {
+                if (!holder.dueDate.getText().toString().equalsIgnoreCase("OVERDUE")) {
                     holder.dueDate.setText(assignBook5.dueDate);
                 }
 
@@ -103,13 +103,12 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
                 assignBook5.returnBook(book);
 
                 // Display message and go to home screen if there are no books left
-                if(books.size() == 1){
+                if (books.size() == 1) {
                     Toast.makeText(mCtx, "No More Books Checked Out", Toast.LENGTH_SHORT).show();
 
                     mCtx.startActivity(new Intent(mCtx, HomeScreen.class));
                     holder.returnBook.setOnClickListener(null);
-                }
-                else{
+                } else {
                     // Let user know the book has been successfully returned and then reopen the screen
                     Toast.makeText(mCtx, book.getTitle() + " returned", Toast.LENGTH_SHORT).show();
 
@@ -127,7 +126,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
     }
 
     // Class to hold different views
-    class ReservationsViewHolder extends RecyclerView.ViewHolder{
+    class ReservationsViewHolder extends RecyclerView.ViewHolder {
         // Set up views
         ImageView cover;
         TextView title, author, dueDate;

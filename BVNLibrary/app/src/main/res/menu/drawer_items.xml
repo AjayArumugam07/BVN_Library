@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/home"
-        android:title="Home"
-        android:icon="@mipmap/ic_home_black_24dp"/>
+        android:icon="@mipmap/ic_home_black_24dp"
+        android:title="Home" />
 
     <item
         android:id="@+id/myBooks"
-        android:title="My Books"
-        android:icon="@mipmap/ic_account_circle_black_24dp"/>
+        android:icon="@mipmap/ic_account_circle_black_24dp"
+        android:title="My Books" />
 
     <item
         android:id="@+id/map"
-        android:title="Map"
-        android:icon="@mipmap/ic_map_black_24dp"/>
+        android:icon="@mipmap/ic_map_black_24dp"
+        android:title="Map" />
 
     <item
         android:id="@+id/librarians"
-        android:title="Librarians"
-        android:icon="@mipmap/ic_people_outline_black_24dp"/>
+        android:icon="@mipmap/ic_people_outline_black_24dp"
+        android:title="Librarians" />
 
     <item
         android:id="@+id/bug"
-        android:title="Report a Bug"
-        android:icon="@mipmap/ic_bug_report_black_24dp" />
+        android:icon="@mipmap/ic_bug_report_black_24dp"
+        android:title="Report a Bug" />
 
     <item
         android:id="@+id/logout"
-        android:title="Logout"
-        android:icon="@mipmap/ic_exit_to_app_black_24dp"/>
+        android:icon="@mipmap/ic_exit_to_app_black_24dp"
+        android:title="Logout" />
 </menu>

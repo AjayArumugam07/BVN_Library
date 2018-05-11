@@ -55,11 +55,11 @@ public class ReportBug extends DrawerMenu {
     }
 
     // Send data to Firebase
-    private void sendData(String name, String email, String phoneNumber, String report){
+    private void sendData(String name, String email, String phoneNumber, String report) {
         Toast.makeText(ReportBug.this, "Submitted", Toast.LENGTH_SHORT).show();
 
-         database.getReference().child("Bug Report").child(name).child("Email").setValue(email);
-         database.getReference().child("Bug Report").child(name).child("Phone Number").setValue(phoneNumber);
-         database.getReference().child("Bug Report").child(name).child("report").setValue(report);
+        database.getReference().child("Bug Report").child(name).child("Email").setValue(email);
+        database.getReference().child("Bug Report").child(name).child("Phone Number").setValue(phoneNumber);
+        database.getReference().child("Bug Report").child(name).child("report").setValue(report);
     }
 }
