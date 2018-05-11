@@ -29,10 +29,12 @@ import java.util.List;
 
 // Recycler view adapter for list of books in my account
 public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ReservationsViewHolder>{
-    // Set up fields
+    // Create Views
     private Context mCtx;
     private List<Books> books;
     private List<Books> overdueBooks;
+
+    // Create Firebase storage object to access database
     public FirebaseStorage storage = FirebaseStorage.getInstance();
 
     // Constructor that sets context and list of books
@@ -60,7 +62,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
         holder.title.setText(book.getTitle());
         String author = book.getAuthorLastName() + ", " +  book.getAuthorFirstName();
         holder.author.setText(author);
-        holder.reserveCheckout.setText("Return");
+        holder.returnBook.setText("Return");
 
         // Set image view to book's cover
         Glide.with(mCtx)
@@ -68,46 +70,51 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
                 .load(storage.getReferenceFromUrl(book.getUrl()))
                 .into(holder.cover);
 
+        // Get all the user's overdue books
         final AssignBook assignBook5 = new AssignBook();
-
-
         assignBook5.dueDate(book);
         assignBook5.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                Log.d("doggy3", book.getTitle());
+                // Check if the current book is an overdue book
                 for(int i = 0; i < overdueBooks.size(); i++){
                     if(overdueBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())){
+                        // Set text to overdue and change text color to red to remind user a book is overdue
                         holder.dueDate.setTextColor(Color.RED);
                         holder.dueDate.setText("OVERDUE");
                     }
                 }
+
+                // If the book is not overdue, display the due date
                 if(!holder.dueDate.getText().toString().equalsIgnoreCase("OVERDUE")) {
                     holder.dueDate.setText(assignBook5.dueDate);
                 }
+
+                // Reset the db source
                 assignBook5.dbSource1 = new TaskCompletionSource<>();
             }
         });
 
-        holder.reserveCheckout.setOnClickListener(new View.OnClickListener() {
+        // Set on click listener for return book button
+        holder.returnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Return the book
                 assignBook5.returnBook(book);
-                //books.remove(position); // just commented
-                //notifyItemRemoved(position); // just commented
+
+                // Display message and go to home screen if there are no books left
                 if(books.size() == 1){
                     Toast.makeText(mCtx, "No More Books Checked Out", Toast.LENGTH_SHORT).show();
 
                     mCtx.startActivity(new Intent(mCtx, HomeScreen.class));
-                    holder.reserveCheckout.setOnClickListener(null);
-
-
+                    holder.returnBook.setOnClickListener(null);
                 }
                 else{
+                    // Let user know the book has been successfully returned and then reopen the screen
                     Toast.makeText(mCtx, book.getTitle() + " returned", Toast.LENGTH_SHORT).show();
 
                     mCtx.startActivity(new Intent(mCtx, MyAccount.class));
-                    holder.reserveCheckout.setOnClickListener(null);
+                    holder.returnBook.setOnClickListener(null);
                 }
             }
         });
@@ -124,7 +131,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
         // Set up views
         ImageView cover;
         TextView title, author, dueDate;
-        Button reserveCheckout;
+        Button returnBook;
 
         public ReservationsViewHolder(View itemView) {
             super(itemView);
@@ -134,7 +141,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
             title = itemView.findViewById(R.id.title);
             author = itemView.findViewById(R.id.author);
             dueDate = itemView.findViewById(R.id.dueDate);
-            reserveCheckout = itemView.findViewById(R.id.reserveCheckout);
+            returnBook = itemView.findViewById(R.id.returnBook);
         }
     }
 }

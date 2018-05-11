@@ -28,13 +28,12 @@ import java.util.List;
 
 // Adapter to be used with recylcer view in displaying list of books on search screen
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
-    // Create variables
+    // Create views
     private Context mCtx;
     private List<Books> books;
-    public FirebaseStorage storage = FirebaseStorage.getInstance();
-    public StorageReference storageRef = storage.getReference();
-    StorageReference gsReference = storage.getReferenceFromUrl("gs://bvnlibrary-a0e90.appspot.com/Book_Images/abcmurders.png");
 
+    // Firebase storage to access database
+    public FirebaseStorage storage = FirebaseStorage.getInstance();
 
     // Constructor passing in context and array of books to be displayed
     public BooksAdapter(Context mCtx, List<Books> books) {
@@ -67,9 +66,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 .load(storage.getReferenceFromUrl(book.getUrl()))
                 .into(holder.cover);
 
+        // Set text of button to Checkout, Return, or Reserve
         AssignBook assignBook1 = new AssignBook();
         assignBook1.setButtonText(holder, books, book);
 
+        // Set on click listener of button
         holder.reserveCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,28 +78,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 AssignBook assignBook = new AssignBook();
                 switch(button.getText().toString()){
                     case "Checkout":
-                        Log.d("Search", "T1");
+                        // Checkout book to user and change text of button to return
                         assignBook.checkoutReserveBook(book);
-
-                        Log.d("donkey", "checked out");
                         holder.reserveCheckout.setText("Return");
                         break;
                     case "Return":
-                        Log.d("donkey", "returned");
+                        // Return book and change text of button to checkout
                         assignBook.returnBook(book);
                         holder.reserveCheckout.setText("Checkout");
                         break;
-                    case "Reserve":
-                        Log.d("Search", "T1");
-                        assignBook.checkoutReserveBook(book);
-
-                        Log.d("donkey", "checked out");
-                        holder.reserveCheckout.setText("Remove Hold");
-                        break;
-//                    case "Remove Hold":
-//                        assignBook.removeHold(book);
-//                        holder.reserveCheckout.setText("Reserve");
-//                        break;
                 }
             }
         });

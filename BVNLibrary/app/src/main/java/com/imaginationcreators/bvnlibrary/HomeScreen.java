@@ -1,36 +1,23 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.content.Intent;
-import android.graphics.pdf.PdfDocument;
-import android.media.Image;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeScreen extends DrawerMenu {
-    // Setup views
+    // Create views
     SearchView searchView;
     Spinner spinner;
 
@@ -46,36 +33,23 @@ public class HomeScreen extends DrawerMenu {
         searchView = (SearchView) findViewById(R.id.searchBar);
         spinner = (Spinner) findViewById(R.id.spinner);
 
+        // Create and set ViewPager's adapter
         ViewPager viewPager = findViewById(R.id.viewPager);
         PageViewAdapter pageViewAdapter = new PageViewAdapter(this);
         viewPager.setAdapter(pageViewAdapter);
 
+        // Create and set tab's adapter
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(viewPager, true);
-
-        AssignBook assignBook = new AssignBook();
-        //assignBook.getOverdueBooks();
 
         // Setup search bar and spinner dropdown
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(HomeScreen.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerNames));
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(listAdapter);
         searchView.setOnQueryTextListener(searchListener);
-
-
-        final AssignBook assignBook1 = new AssignBook();
-        assignBook1.getOverdueBooks();
-        assignBook1.dbSource2.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-            @Override
-            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                for(int i = 0; i < assignBook1.overdueBooks.size(); i ++){
-                    Log.d("john", assignBook1.overdueBooks.get(i).getTitle());
-                }
-            }
-        });
-
     }
 
+    // Set listener for when something is searched
     SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {

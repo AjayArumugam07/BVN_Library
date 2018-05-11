@@ -81,6 +81,7 @@ public class AssignBook {
     public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
         if (book.getAvailablity().contains("Available")) {
             holder.reserveCheckout.setText("Checkout");
+            holder.reserveCheckout.setEnabled(true);
             return;
         }
         else{

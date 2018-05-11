@@ -27,9 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthScreen extends AppCompatActivity {
-    // Log tag
-    private static final String TAG = "AuthScreen";
-
     // Declare views
     private Button signIn;
     private LoginButton loginButton;

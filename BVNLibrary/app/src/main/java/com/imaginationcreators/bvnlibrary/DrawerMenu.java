@@ -49,7 +49,7 @@ public class DrawerMenu extends AppCompatActivity {
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(toggle);
 
-        // Start activites based on option selected when selected
+        // Start activities based on option selected
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -97,6 +97,7 @@ public class DrawerMenu extends AppCompatActivity {
         }
     }
 
+    // Set up toggle to open and close drawer menu
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
