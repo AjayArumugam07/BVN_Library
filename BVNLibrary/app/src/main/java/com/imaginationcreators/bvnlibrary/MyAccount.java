@@ -38,7 +38,7 @@ public class MyAccount extends DrawerMenu {
                 Log.d("123456", "check1");
                 noBooksChecked.setText("No Books Checked Out");
 
-                assignBook.getUserCheckedoutBooks(search.searchSample);
+                assignBook.getUserCheckedoutBooks(search.searchSample, false);
                 assignBook.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {

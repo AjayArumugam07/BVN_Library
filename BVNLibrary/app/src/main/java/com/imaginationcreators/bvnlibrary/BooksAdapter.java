@@ -76,13 +76,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 Button button = (Button) v;
                 AssignBook assignBook = new AssignBook();
                 switch(button.getText().toString()){
-//                    case "Reserve":
-//                        Log.d("Search", "T1");
-//                        assignBook.checkoutReserveBook(book);
-//
-//                        Log.d("donkey", "checked out");
-//                        holder.reserveCheckout.setText("Remove Hold");
-//                        break;
                     case "Checkout":
                         Log.d("Search", "T1");
                         assignBook.checkoutReserveBook(book);
@@ -94,6 +87,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                         Log.d("donkey", "returned");
                         assignBook.returnBook(book);
                         holder.reserveCheckout.setText("Checkout");
+                        break;
+                    case "Reserve":
+                        Log.d("Search", "T1");
+                        assignBook.checkoutReserveBook(book);
+
+                        Log.d("donkey", "checked out");
+                        holder.reserveCheckout.setText("Remove Hold");
                         break;
 //                    case "Remove Hold":
 //                        assignBook.removeHold(book);

@@ -81,37 +81,32 @@ public class AssignBook {
     public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
         if (book.getAvailablity().contains("Available")) {
             holder.reserveCheckout.setText("Checkout");
+            return;
         }
-        else {
-            holder.reserveCheckout.setText("Return");
-        }
-            holder.reserveCheckout.setEnabled(true);
-        /*
-        final Search search = new Search();
-        search.setLocalDatabaseForSearchTitle();
-        search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-            @Override
-            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-
-                dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                        for(int i = 0; i < reservedBooks.size(); i++){
-                            if(reservedBooks.get(i) == book){
-                                holder.reserveCheckout.setText("Return");
-                                holder.reserveCheckout.setEnabled(true);
-                                return;
-                            }
+        else{
+            /*Log.d(book.getTitle(), "not available");
+            getUserCheckedoutBooks(searchSample, true);
+            dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+                @Override
+                public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                    Log.d(TAG, "onComplete: onComplete entered");
+                    for(int i = 0; i < searchSample.size(); i++){
+                        if(searchSample.get(i).getTitle().equalsIgnoreCase(book.getTitle())){
+                            holder.reserveCheckout.setText("Return");
+                            return;
                         }
                     }
-                });
-            }
-        });*/
+                    holder.reserveCheckout.setText("Reserve");
+                }
+            });*/
+            holder.reserveCheckout.setText("Unavailable");
+            holder.reserveCheckout.setEnabled(false);
+        }
     }
 
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
-    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample) {
+    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample, final boolean addUnknownBooks) {
 
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").addChildEventListener(new ChildEventListener() {
             @Override
@@ -123,13 +118,13 @@ public class AssignBook {
                             reservedBooks.add(searchSample.get(i));
                             Log.d("123456789", searchSample.get(i).getTitle());
                         }
-
-
                     }
-
                 }
                 Log.d("123456789", reservedBooks.size() + " hi");
-
+                if(addUnknownBooks && reservedBooks.size() == 0){
+                    Log.d(TAG, "random book added");
+                    reservedBooks.add(new Books());
+                }
                 dbSource.setResult(reservedBooks);
                 dbSource = new TaskCompletionSource<>();
             }
@@ -227,7 +222,7 @@ public class AssignBook {
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
 
 
-                getUserCheckedoutBooks(search.searchSample);
+                getUserCheckedoutBooks(search.searchSample, false);
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
