@@ -18,86 +18,76 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.EventListener;
 
-public class Search {
-    private static final String TAG = "Search";
+public class Search {                                                       // Search Class: Iterate through database to find book
 
 
-    public ArrayList<Books> searchResults = new ArrayList<>();
-    public ArrayList<Books> searchSample = new ArrayList<>();
+
+    public ArrayList<Books> searchResults = new ArrayList<>();              // Query Result Array List
+    public ArrayList<Books> searchSample = new ArrayList<>();               // Array List of all books in library
 
 
     private int i = 0;
-    public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();      // declaring tasks
 
     public TaskCompletionSource<ArrayList<Books>> dbSource1 = new TaskCompletionSource<>();
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Books");
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Books"); // Firebase database reference
 
-    public ArrayList<String> genre = new ArrayList<>();
-
-    public Search()
+    public ArrayList searchFromSample(final String title, final String searchType)      // search user input in database of books
     {
-        Log.d(TAG, "Search Created");
 
-        if(dbSource == null){
-            Log.d(TAG, "Search: DB source is null");
-        }
-    }
-    public ArrayList searchFromSample(final String title, final String searchType)
-    {
-        Log.d(TAG, "1");
-        setLocalDatabaseForSearchTitle();
+        setLocalDatabaseForSearchTitle();                                               // Compile list of books from firebase database
 
 
         dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
-            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+            public void onComplete(@NonNull Task<ArrayList<Books>> task) {                              // Completion listener for task
 
 
-                    for(int j = 0; j < searchSample.size(); j++)
+                    for(int j = 0; j < searchSample.size(); j++)                           // iterate through list of all books
                     {
-                        if (searchType.equals("Title") && searchSample.get(j).getTitle().toLowerCase().contains(title))
+                        if (searchType.equals("Title") && searchSample.get(j).getTitle().toLowerCase().contains(title))     // check if the user input matches any of the database book titles
                         {
 
                             if(!searchResults.contains(searchSample.get(j))){
-                                searchResults.add(searchSample.get(j));
-                                Log.d("george orwell", searchSample.get(j).getTitle());
+                                searchResults.add(searchSample.get(j));                                             // add the book to results
+
                             }
 
 
                         }
-                        else if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(title)))
+                        else if (searchType.equals("Author") && (searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) || searchSample.get(j).getAuthorLastName().toLowerCase().contains(title)))  // check if user input matches any of the author first and last names in the firebase database
                         {
-                            searchResults.add(searchSample.get(j));
-                            Log.d(TAG, searchSample.get(j).getTitle());
+                            searchResults.add(searchSample.get(j));     // add any of the matched books to the results List
+
                         }
-                        else if (searchType.equals("Any") && ((searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) ||
+                        else if (searchType.equals("Any") && ((searchSample.get(j).getAuthorFirstName().toLowerCase().contains(title) ||        // check if user input matches the author name or title of a book
                                 searchSample.get(j).getAuthorLastName().toLowerCase().contains(title)) ||
                                 searchSample.get(j).getTitle().toLowerCase().contains(title)))
                         {
-                            searchResults.add(searchSample.get(j));
+                            searchResults.add(searchSample.get(j));                 // add any of the matched books to the results List
 
                         }
                     }
 
-                dbSource1.setResult(searchResults);
+                dbSource1.setResult(searchResults);                                  // Complete Task by setting result
                 dbSource1 = new TaskCompletionSource<>();
             }
         });
         return searchResults;
     }
 
-    public void setLocalDatabaseForSearchTitle()
+    public void setLocalDatabaseForSearchTitle()                                                                        // Create a local version of the online database
     {
-        Log.d(TAG, "2");
-        databaseReference.addChildEventListener(new ChildEventListener() {
+
+        databaseReference.addChildEventListener(new ChildEventListener() {                                               // Add a listener to the children of the database
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())                                              // loop through all the children
                 {
 
-                    searchSample.add(new Books(dataSnapshot1.getKey(),
+                    searchSample.add(new Books(dataSnapshot1.getKey(),                                                      // add a new book to the local version of database
                             dataSnapshot1.child("Author_First_Name").getValue().toString(),
                             dataSnapshot1.child("Author_Last_Name").getValue().toString(),
                             dataSnapshot1.child("ISBN").getValue().toString(),
@@ -105,7 +95,7 @@ public class Search {
                             dataSnapshot1.child("Reference").getValue().toString()));
                 }
 
-                    dbSource.setResult(searchSample);
+                    dbSource.setResult(searchSample);                                                                       // completing the task by setting result
                 dbSource = new TaskCompletionSource<>();
 
             }

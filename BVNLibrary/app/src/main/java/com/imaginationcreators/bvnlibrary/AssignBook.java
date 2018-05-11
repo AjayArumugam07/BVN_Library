@@ -40,18 +40,20 @@ public class AssignBook {
     public String dueDate;
     public String dueDate1;
 
+    // Declare tasks
     public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
     public TaskCompletionSource<ArrayList<Books>> dbSource2 = new TaskCompletionSource<>();
-    final ArrayList<Books> overdueBooks = new ArrayList<Books>();
-    public boolean check = false;
-    public ChildEventListener childEventListener;
+    final ArrayList<Books> overdueBooks = new ArrayList<Books>();       // Declare overdue book List
 
-    public void checkoutReserveBook(final Books book) {
-        if (book.getAvailablity().equalsIgnoreCase("Available")) {
-            Log.d("donkey", "A");
+    public boolean check = false;
+
+
+    public void checkoutReserveBook(final Books book) {                                     // Checkout or reserve book
+        if (book.getAvailablity().equalsIgnoreCase("Available")) {               // if book is available checkout book
+
             database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").child(book.getTitle()).setValue("1");
-            Log.d("Search", "T7");
+
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(mAuth.getUid());
             Date date = new Date();
@@ -67,39 +69,25 @@ public class AssignBook {
             }
             c.add(Calendar.DAY_OF_MONTH, 7);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
             SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
-            String output = sdf1.format(c.getTime());
+            String output = sdf1.format(c.getTime());                                                   // Set due date of book
+
+            // Set book to checked out on database
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Check Out Date").setValue(dateFormat.format(date));
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
-        } else if (book.getAvailablity().equalsIgnoreCase("Unavailable")) {
+
+        } else if (book.getAvailablity().equalsIgnoreCase("Unavailable")) {     // if book is unavailable reserve book
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).setValue(mAuth.getUid());
-        } else {
-            Log.d("donkey", "Text in Database doesn't match: " + book.getAvailablity());
         }
     }
 
 
-    public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
+    public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {        // Set button text in search screen according to its availability
         if (book.getAvailablity().contains("Available")) {
             holder.reserveCheckout.setText("Checkout");
             holder.reserveCheckout.setEnabled(true);
             return;
         }
         else{
-            /*Log.d(book.getTitle(), "not available");
-            getUserCheckedoutBooks(searchSample, true);
-            dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
-                @Override
-                public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                    Log.d(TAG, "onComplete: onComplete entered");
-                    for(int i = 0; i < searchSample.size(); i++){
-                        if(searchSample.get(i).getTitle().equalsIgnoreCase(book.getTitle())){
-                            holder.reserveCheckout.setText("Return");
-                            return;
-                        }
-                    }
-                    holder.reserveCheckout.setText("Reserve");
-                }
-            });*/
             holder.reserveCheckout.setText("Unavailable");
             holder.reserveCheckout.setEnabled(false);
         }
@@ -107,23 +95,23 @@ public class AssignBook {
 
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
-    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample, final boolean addUnknownBooks) {
+    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample, final boolean addUnknownBooks) {      // Create a local list of the books that the user checked out
 
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Log.d("12345678910", dataSnapshot1.getValue().toString());
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {     // get books from database
+
                     for (int i = 0; i < searchSample.size(); i++) {
                         if (dataSnapshot1.getKey().toString().contains(searchSample.get(i).getTitle())) {
                             reservedBooks.add(searchSample.get(i));
-                            Log.d("123456789", searchSample.get(i).getTitle());
+
                         }
                     }
                 }
-                Log.d("123456789", reservedBooks.size() + " hi");
+
                 if(addUnknownBooks && reservedBooks.size() == 0){
-                    Log.d(TAG, "random book added");
+
                     reservedBooks.add(new Books());
                 }
                 dbSource.setResult(reservedBooks);
@@ -149,7 +137,7 @@ public class AssignBook {
         return reservedBooks;
     }
 
-    public void dueDate(final Books book) {
+    public void dueDate(final Books book) {     // Check if a book is overdue
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -207,14 +195,14 @@ public class AssignBook {
         });
     }
 
-    public void returnBook(final Books book) {
+    public void returnBook(final Books book) {              // return a book back to database
         Log.d(TAG, "returnBook: asdf");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
     }
 
-    public void getOverdueBooks() {
+    public void getOverdueBooks() {             // get overdue books from database
         final Search search = new Search();
         search.setLocalDatabaseForSearchTitle();
 
@@ -223,16 +211,16 @@ public class AssignBook {
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
 
 
-                getUserCheckedoutBooks(search.searchSample, false);
+                getUserCheckedoutBooks(search.searchSample, false);     // get books checked out by user
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                         for (final Books book : reservedBooks) {
-                            dueDate(book);
+                            dueDate(book);                                               // check if a book is overdue
                         }
                         if(overdueBooks.size() == 0){
-                            Log.d(TAG, "doggy1");
-                            overdueBooks.add(new Books());
+
+                            overdueBooks.add(new Books());                                 // add book to overdue list
                         }
                         dbSource2.setResult(overdueBooks);
                         dbSource2 = new TaskCompletionSource<>();
@@ -243,7 +231,7 @@ public class AssignBook {
         });
     }
 
-    public void removeHold(Books book){
+    public void removeHold(Books book){                                                     // remove book from hold
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("User Id").child(mAuth.getUid()).removeValue();
     }
 }
