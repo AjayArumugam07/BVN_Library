@@ -40,7 +40,7 @@ public class AssignBook {
     public String dueDate;
     public String dueDate1;
 
-    public TaskCompletionSource<ArrayList<Books>>dbSource = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
     public TaskCompletionSource<ArrayList<Books>> dbSource2 = new TaskCompletionSource<>();
     final ArrayList<Books> overdueBooks = new ArrayList<Books>();
@@ -70,18 +70,22 @@ public class AssignBook {
             String output = sdf1.format(c.getTime());
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Check Out Date").setValue(dateFormat.format(date));
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
-        }
-         else {
+        } else if (book.getAvailablity().equalsIgnoreCase("Unavailable")) {
+            database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).setValue(mAuth.getUid());
+        } else {
             Log.d("donkey", "Text in Database doesn't match: " + book.getAvailablity());
         }
     }
 
+
     public void setButtonText(final BooksAdapter.BooksViewHolder holder, final List<Books> searchSample, final Books book) {
         if (book.getAvailablity().contains("Available")) {
             holder.reserveCheckout.setText("Checkout");
-            holder.reserveCheckout.setEnabled(true);
-            return;
         }
+        else {
+            holder.reserveCheckout.setText("Return");
+        }
+            holder.reserveCheckout.setEnabled(true);
         /*
         final Search search = new Search();
         search.setLocalDatabaseForSearchTitle();
@@ -103,14 +107,10 @@ public class AssignBook {
                 });
             }
         });*/
-
-
-        holder.reserveCheckout.setText("Not Available");
-        holder.reserveCheckout.setEnabled(false);
-        return;
     }
 
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
+
     public List<Books> getUserCheckedoutBooks(final List<Books> searchSample) {
 
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").addChildEventListener(new ChildEventListener() {
@@ -152,6 +152,7 @@ public class AssignBook {
         });
         return reservedBooks;
     }
+
     public void dueDate(final Books book) {
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").addChildEventListener(new ChildEventListener() {
             @Override
@@ -181,9 +182,8 @@ public class AssignBook {
                         e.printStackTrace();
                     }
 
-                    if(date3.after(date1)){
+                    if (date3.after(date1)) {
                         overdueBooks.add(book);
-                        Log.d("John1", book.getTitle());
                     }
                 }
             }
@@ -211,7 +211,7 @@ public class AssignBook {
         });
     }
 
-    public void returnBook(final Books book){
+    public void returnBook(final Books book) {
         Log.d(TAG, "returnBook: asdf");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
@@ -231,21 +231,23 @@ public class AssignBook {
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
-                        for(final Books book : reservedBooks){
+                        for (final Books book : reservedBooks) {
                             dueDate(book);
-
-
                         }
-
+                        if(overdueBooks.size() == 0){
+                            Log.d(TAG, "doggy1");
+                            overdueBooks.add(new Books());
+                        }
                         dbSource2.setResult(overdueBooks);
                         dbSource2 = new TaskCompletionSource<>();
                         dbSource = new TaskCompletionSource<>();
-
                     }
-
                 });
             }
         });
+    }
 
+    public void removeHold(Books book){
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("User Id").child(mAuth.getUid()).removeValue();
     }
 }

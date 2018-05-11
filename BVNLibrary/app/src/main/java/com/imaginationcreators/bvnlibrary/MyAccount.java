@@ -51,10 +51,20 @@ public class MyAccount extends DrawerMenu {
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(MyAccount.this));
 
-                        adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks);
-                        recyclerView.setAdapter(adapter);
-                        assignBook.dbSource = new TaskCompletionSource<>();
+                        final AssignBook assignBook2 = new AssignBook();
+                        assignBook2.getOverdueBooks();
+                        assignBook2.dbSource2.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+                            @Override
+                            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                                Log.d("Doggy", "over due books listener done: ");
 
+                                adapter = new MyAccountAdapter(MyAccount.this, assignBook.reservedBooks, assignBook2.overdueBooks);
+
+                                recyclerView.setAdapter(adapter);
+                                assignBook.dbSource = new TaskCompletionSource<>();
+                                assignBook2.dbSource2 = new TaskCompletionSource<>();
+                            }
+                        });
                     }
 
                 });

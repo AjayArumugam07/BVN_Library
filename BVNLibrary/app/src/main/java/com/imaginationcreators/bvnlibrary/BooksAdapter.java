@@ -1,6 +1,7 @@
 package com.imaginationcreators.bvnlibrary;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +76,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 Button button = (Button) v;
                 AssignBook assignBook = new AssignBook();
                 switch(button.getText().toString()){
+//                    case "Reserve":
+//                        Log.d("Search", "T1");
+//                        assignBook.checkoutReserveBook(book);
+//
+//                        Log.d("donkey", "checked out");
+//                        holder.reserveCheckout.setText("Remove Hold");
+//                        break;
                     case "Checkout":
                         Log.d("Search", "T1");
                         assignBook.checkoutReserveBook(book);
@@ -84,6 +95,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                         assignBook.returnBook(book);
                         holder.reserveCheckout.setText("Checkout");
                         break;
+//                    case "Remove Hold":
+//                        assignBook.removeHold(book);
+//                        holder.reserveCheckout.setText("Reserve");
+//                        break;
                 }
             }
         });

@@ -1,6 +1,22 @@
 {
   "Books" : {
     "Book" : {
+      "1984" : {
+        "Author_First_Name" : "George",
+        "Author_Last_Name" : "Orwell",
+        "Availablility" : "Available",
+        "ISBN" : 9781471331435,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/nineteen_eightyfour.jpg"
+      },
+      "Anthem" : {
+        "Author_First_Name" : "Ayn",
+        "Author_Last_Name" : "Weir",
+        "Availablility" : "Available",
+        "ISBN" : 9780451137,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/anthem.png"
+      },
       "Artemis" : {
         "Author_First_Name" : "Andy",
         "Author_Last_Name" : "Weir",
@@ -24,6 +40,14 @@
         "ISBN" : 9780563389538,
         "Number Of Holds" : 0,
         "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/deathonthenile.png"
+      },
+      "Deep Freeze" : {
+        "Author_First_Name" : "Philipp",
+        "Author_Last_Name" : "Bagus",
+        "Availablility" : "Available",
+        "ISBN" : 9780525497363,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/deep_freeze.jpg"
       },
       "Dragonfly in Amber" : {
         "Author_First_Name" : "Diana",
@@ -145,6 +169,14 @@
         "Number Of Holds" : "0",
         "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/dukeandi.png"
       },
+      "The Hound of the Baskervilles" : {
+        "Author_First_Name" : "Conan",
+        "Author_Last_Name" : "Doyle",
+        "Availablility" : "Available",
+        "ISBN" : 9781523800414,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/hound_of_baskervilles.jpg"
+      },
       "The Magpie Murders" : {
         "Author_First_Name" : "Susan",
         "Author_Last_Name" : "Ryeland",
@@ -200,6 +232,34 @@
         "ISBN" : 9781524708146,
         "Number Of Holds" : "0",
         "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/whenbreathbecomesair.png"
+      },
+      "White Fang" : {
+        "Author_First_Name" : "Jack",
+        "Author_Last_Name" : "London",
+        "Availablility" : "Available",
+        "ISBN" : 9781421814728,
+        "Number Of Holds" : 0,
+        "Reference" : "gs://bvnlibrary-a0e90.appspot.com/Book_Images/white_fang.jpg"
+      }
+    }
+  },
+  "Bug Report" : {
+    "Ajay" : {
+      "Email" : "ajayvairam.krishna@gmail.com",
+      "Phone Number" : "ajayvairam.krishna@gmail.com",
+      "report" : "bugless app\n"
+    }
+  },
+  "Users" : {
+    "40bUW0ntn8hkyeV5xtxi9VEfPmf1" : {
+      "Checked Out" : {
+        "checkout" : {
+          "Anthem" : "1",
+          "Artemis" : "1",
+          "Catching Fire" : "1",
+          "Death on the Nile" : "1",
+          "Deep Freeze" : "1"
+        }
       }
     }
   }

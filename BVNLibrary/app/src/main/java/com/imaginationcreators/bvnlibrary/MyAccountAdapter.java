@@ -2,8 +2,10 @@ package com.imaginationcreators.bvnlibrary;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +32,14 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
     // Set up fields
     private Context mCtx;
     private List<Books> books;
+    private List<Books> overdueBooks;
     public FirebaseStorage storage = FirebaseStorage.getInstance();
 
     // Constructor that sets context and list of books
-    public MyAccountAdapter(Context mCtx, List<Books> books) {
+    public MyAccountAdapter(Context mCtx, List<Books> books, List<Books> overdueBooks) {
         this.mCtx = mCtx;
         this.books = books;
+        this.overdueBooks = overdueBooks;
     }
 
     // Inflate layout based on context and target layout
@@ -71,7 +75,16 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
         assignBook5.dbSource1.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                holder.dueDate.setText(assignBook5.dueDate);
+                Log.d("doggy3", book.getTitle());
+                for(int i = 0; i < overdueBooks.size(); i++){
+                    if(overdueBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())){
+                        holder.dueDate.setTextColor(Color.RED);
+                        holder.dueDate.setText("OVERDUE");
+                    }
+                }
+                if(!holder.dueDate.getText().toString().equalsIgnoreCase("OVERDUE")) {
+                    holder.dueDate.setText(assignBook5.dueDate);
+                }
                 assignBook5.dbSource1 = new TaskCompletionSource<>();
             }
         });
