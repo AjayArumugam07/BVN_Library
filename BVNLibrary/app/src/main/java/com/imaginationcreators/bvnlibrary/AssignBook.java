@@ -47,14 +47,22 @@ public class AssignBook {
     public final ArrayList<Books> userBooks = new ArrayList<Books>();
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
+    private ChildEventListener childEventListener;
+
     // Checkout or reserve book
-    public void checkoutBook(final Books book) {
+    public void checkoutBook(final Books book, String uid) {
+        Log.d("fish", "checkoutBook: ");
+        if(uid.equalsIgnoreCase("")){
+            Log.d("fish", "current id used ");
+            uid = mAuth.getUid();
+        }
+
         // Check if book is available
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
             // Set database values to match checking out book
-            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Checked Out").child("checkout").child(book.getTitle()).setValue("1");
+            database.getReference().child("Users").child(uid).child("Checked Out").child("checkout").child(book.getTitle()).setValue("1");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
-            database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(mAuth.getUid());
+            database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("User Id").setValue(uid);
 
             // Set up date to track due date
             Date date = new Date();
@@ -227,10 +235,45 @@ public class AssignBook {
 
     // Return a book back to database
     public void returnBook(final Books book) {
-        Log.d(TAG, "returnBook: asdf");
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("fish", "child added");
+                ArrayList<String> uids = new ArrayList<String>();
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    uids.add(dataSnapshot1.getKey());
+                }
+                database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(uids.get(uids.size() - 1)).removeValue();
+                database.getReference().child("Users").child(uids.get(uids.size() - 1)).child("Holds").child("hold").child(book.getTitle()).removeValue();
+                checkoutBook(book, uids.get(uids.size() - 1));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        Log.d("fish", "returnBook");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Available");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").addChildEventListener(childEventListener);
     }
 
     // Get overdue books from database
@@ -309,18 +352,47 @@ public class AssignBook {
                 });
             }
         });
-
-
     }
 
     public void reserveBook(Books book) {
+        Log.d("fish", "reserveBook: ");
         database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).setValue("1");
-        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).setValue("1");
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(mAuth.getUid()).setValue("1");
     }
 
     // Remove hold from book
     public void removeHold(Books book) {
-        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).removeValue();
+        Log.d("fish", "removeHold: ");
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(mAuth.getUid()).removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).removeValue();
+    }
+
+    public void resetListener(){
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("fish", "child added in blank listener");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
     }
 }
