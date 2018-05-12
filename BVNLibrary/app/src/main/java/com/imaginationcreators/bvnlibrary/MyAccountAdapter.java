@@ -100,7 +100,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.Rese
             @Override
             public void onClick(View v) {
                 // Return the book
-                assignBook5.returnBook(book);
+                assignBook5.returnBook(book, null);
 
                 // Display message and go to home screen if there are no books left
                 if (books.size() == 1) {

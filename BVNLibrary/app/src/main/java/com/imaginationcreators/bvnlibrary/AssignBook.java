@@ -57,8 +57,10 @@ public class AssignBook {
             uid = mAuth.getUid();
         }
 
-        // Check if book is available
-        if (book.getAvailablity().equalsIgnoreCase("Available")) {
+//        // Check if book is available
+//        if (book.getAvailablity().equalsIgnoreCase("Available")) {
+            //Log.d("fish", "book is available");
+
             // Set database values to match checking out book
             database.getReference().child("Users").child(uid).child("Checked Out").child("checkout").child(book.getTitle()).setValue("1");
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("Availablility").setValue("Unavailable");
@@ -86,7 +88,7 @@ public class AssignBook {
             // Set book to checked out on database
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Check Out Date").setValue(dateFormat.format(date));
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
-        }
+//        }
     }
 
     // Set text of button in search screen
@@ -234,7 +236,7 @@ public class AssignBook {
     }
 
     // Return a book back to database
-    public void returnBook(final Books book) {
+    public void returnBook(final Books book, final BooksAdapter.BooksViewHolder holder) {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -246,6 +248,10 @@ public class AssignBook {
                 database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(uids.get(uids.size() - 1)).removeValue();
                 database.getReference().child("Users").child(uids.get(uids.size() - 1)).child("Holds").child("hold").child(book.getTitle()).removeValue();
                 checkoutBook(book, uids.get(uids.size() - 1));
+                database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").removeEventListener(childEventListener);
+                if(holder != null) {
+                    holder.reserveCheckout.setText("Reserve");
+                }
             }
 
             @Override
