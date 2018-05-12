@@ -38,6 +38,7 @@ public class AssignBook {
     public TaskCompletionSource<ArrayList<Books>> dbSource = new TaskCompletionSource<>();
     public TaskCompletionSource<String> dbSource1 = new TaskCompletionSource<>();
     public TaskCompletionSource<ArrayList<Books>> dbSource2 = new TaskCompletionSource<>();
+    public TaskCompletionSource<ArrayList<Books>> dbSource3 = new TaskCompletionSource<>();
 
     // Declare overdue book List
     final ArrayList<Books> overdueBooks = new ArrayList<Books>();
@@ -47,7 +48,7 @@ public class AssignBook {
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
     // Checkout or reserve book
-    public void checkoutReserveBook(final Books book) {
+    public void checkoutBook(final Books book) {
         // Check if book is available
         if (book.getAvailablity().equalsIgnoreCase("Available")) {
             // Set database values to match checking out book
@@ -77,10 +78,6 @@ public class AssignBook {
             // Set book to checked out on database
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Check Out Date").setValue(dateFormat.format(date));
             database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").child("Due Date").setValue(output);
-
-            // If book is unavailable, reserve book
-        } else if (book.getAvailablity().equalsIgnoreCase("Unavailable")) {
-            database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).setValue(mAuth.getUid());
         }
     }
 
@@ -91,11 +88,45 @@ public class AssignBook {
             holder.reserveCheckout.setText("Checkout");
             return;
         }
+        getUserReservedBooks();
+        dbSource3.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+            @Override
+            public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                for (int i = 0; i < reservedBooks.size(); i++) {
+                    if (reservedBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())) {
+                        holder.reserveCheckout.setText("Remove Hold");
+                        return;
+                    }
+                }
 
+                getUserCheckedoutBooks(searchSample, true);
+                dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                        for (int i = 0; i < userBooks.size(); i++) {
+                            if (userBooks.get(i).getTitle().equalsIgnoreCase(book.getTitle())) {
+                                holder.reserveCheckout.setText("Return");
+                                return;
+                            }
+                        }
+
+                        for (int i = 0; i < userBooks.size(); i++) {
+                            Log.d("user books: ", userBooks.get(i).getTitle());
+                        }
+
+                        holder.reserveCheckout.setText("Reserve");
+                    }
+                });
+            }
+        });
     }
 
     // Get all the books the user has checked out
-    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample) {
+    public List<Books> getUserCheckedoutBooks(final List<Books> searchSample, final boolean addRandomChild) {
+        if (addRandomChild) {
+            database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child("1").setValue("1");
+        }
+
         // Start pulling all the books the user has checked out
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").addChildEventListener(new ChildEventListener() {
             @Override
@@ -107,6 +138,9 @@ public class AssignBook {
                             userBooks.add(searchSample.get(i));
                         }
                     }
+                }
+                if (addRandomChild) {
+                    database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child("1").removeValue();
                 }
 
                 // Set result of db source and reset db source
@@ -208,7 +242,7 @@ public class AssignBook {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
                 // Get books checked out by user
-                getUserCheckedoutBooks(search.searchSample);
+                getUserCheckedoutBooks(search.searchSample, false);
                 dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
@@ -231,30 +265,47 @@ public class AssignBook {
         });
     }
 
-    private void getUserReservedBooks(){
+    private void getUserReservedBooks() {
         final DatabaseReference reserveBookReference = database.getReference().child("Users").child(mAuth.getUid()).child("Holds");
         final Search search = new Search();
         search.setLocalDatabaseForSearchTitle();
+        Log.d("horse", "getUserReservedBooks: ");
+
         search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
+                database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child("1").setValue("1");
                 reserveBookReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        for(Books book : search.searchSample){
-                            if(book.getTitle().equalsIgnoreCase(dataSnapshot.getKey())){
-                                reservedBooks.add(book);
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            for (Books book : search.searchSample) {
+                                if (book.getTitle().equalsIgnoreCase(dataSnapshot1.getKey())) {
+                                    reservedBooks.add(book);
+                                }
                             }
                         }
+                        Log.d(TAG, "onChildAdded: ");
+                        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child("1").removeValue();
+                        dbSource3.setResult(reservedBooks);
+                        dbSource3 = new TaskCompletionSource<>();
                     }
+
                     @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    }
+
                     @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
                     @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
             }
         });
@@ -262,14 +313,14 @@ public class AssignBook {
 
     }
 
-    public void reserveBook(Books book){
-        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child(book.getTitle()).setValue("1");
+    public void reserveBook(Books book) {
+        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).setValue("1");
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).setValue("1");
     }
 
     // Remove hold from book
     public void removeHold(Books book) {
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child(mAuth.getUid()).removeValue();
-        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child(book.getTitle()).removeValue();
+        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).removeValue();
     }
 }

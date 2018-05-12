@@ -43,7 +43,7 @@ public class MyAccount extends DrawerMenu {
                 noBooksChecked.setText("No Books Checked Out");
 
                 // Get all the book's the user has checked out
-                assignBook.getUserCheckedoutBooks(search.searchSample);
+                assignBook.getUserCheckedoutBooks(search.searchSample, false);
                 assignBook.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
                     @Override
                     public void onComplete(@NonNull Task<ArrayList<Books>> task) {
