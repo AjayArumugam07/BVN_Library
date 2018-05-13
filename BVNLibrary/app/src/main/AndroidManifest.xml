@@ -18,14 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AuthScreen" />
-        <activity android:name=".CreateUser" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".DrawerMenu" />
-        <activity android:name=".MyAccount" />
-        <activity android:name=".Map" />
-        <activity android:name=".Librarians" />
-        <activity android:name=".SearchScreen" />
+        <activity android:name=".AuthScreen" android:screenOrientation="portrait" />
+        <activity android:name=".CreateUser" android:screenOrientation="portrait"/>
+        <activity android:name=".HomeScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".DrawerMenu" android:screenOrientation="portrait"/>
+        <activity android:name=".MyAccount" android:screenOrientation="portrait"/>
+        <activity android:name=".Map" android:screenOrientation="portrait"/>
+        <activity android:name=".Librarians" android:screenOrientation="portrait"/>
+        <activity android:name=".SearchScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".ReportBug" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -47,7 +48,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReportBug"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@
         android:id="@+id/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Create Account"
@@ -67,7 +68,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:clickable="true"
-        android:text="Already Have An Account? Sign in Here"
+        android:text="Already Have An Account? Log in Here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/createAccount"
         app:layout_constraintStart_toStartOf="@+id/createAccount" />
@@ -96,6 +97,6 @@
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mustangs_lib" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
 </android.support.constraint.ConstraintLayout>
