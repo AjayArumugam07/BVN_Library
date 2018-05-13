@@ -35,7 +35,6 @@ public class MyAccount extends DrawerMenu {
         final AssignBook assignBook = new AssignBook();
         final Search search = new Search();
         search.setLocalDatabaseForSearchTitle();
-        Log.d("12345", "check");
         search.dbSource.getTask().addOnCompleteListener(new OnCompleteListener<ArrayList<Books>>() {
             @Override
             public void onComplete(@NonNull Task<ArrayList<Books>> task) {
