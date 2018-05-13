@@ -72,21 +72,25 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
                 switch (button.getText().toString()) {
                     case "Checkout":
                         // Checkout book to user and change text of button to return
+                        assignBook.enterListener = false;
                         assignBook.checkoutBook(book, "");
                         holder.reserveCheckout.setText("Return");
                         break;
                     case "Return":
                         // Return book and change text of button to checkout
+                        assignBook.enterListener = false;
                         assignBook.returnBook(book, holder);
                         holder.reserveCheckout.setText("Checkout");
                         break;
                     case "Reserve":
                         // Reserve book and change text of button to remove hold
+                        assignBook.enterListener = false;
                         assignBook.reserveBook(book);
                         holder.reserveCheckout.setText("Remove Hold");
                         break;
                     case "Remove Hold":
                         // Remove hold and change text of button to reserve
+                        assignBook.enterListener = false;
                         assignBook.removeHold(book);
                         holder.reserveCheckout.setText("Reserve");
                         break;

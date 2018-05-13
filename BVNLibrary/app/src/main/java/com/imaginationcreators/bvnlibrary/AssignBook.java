@@ -12,6 +12,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.sql.Timestamp;
+import com.google.firebase.database.ServerValue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +31,7 @@ import static android.content.ContentValues.TAG;
 
 public class AssignBook {
     // Create references used for Firebase
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public String dueDate;
     public String dueDate1;
@@ -47,7 +49,34 @@ public class AssignBook {
     public final ArrayList<Books> userBooks = new ArrayList<Books>();
     public final ArrayList<Books> reservedBooks = new ArrayList<Books>();
 
-    private ChildEventListener childEventListener;
+    public ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+    public static boolean enterListener = false;
 
     // Checkout or reserve book
     public void checkoutBook(final Books book, String uid) {
@@ -240,17 +269,25 @@ public class AssignBook {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("fish", "child added");
-                ArrayList<String> uids = new ArrayList<String>();
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    uids.add(dataSnapshot1.getKey());
-                }
-                database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(uids.get(uids.size() - 1)).removeValue();
-                database.getReference().child("Users").child(uids.get(uids.size() - 1)).child("Holds").child("hold").child(book.getTitle()).removeValue();
-                checkoutBook(book, uids.get(uids.size() - 1));
-                database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").removeEventListener(childEventListener);
-                if(holder != null) {
-                    holder.reserveCheckout.setText("Reserve");
+                if(enterListener) {
+                    Log.d("fish", "child added");
+                    String uid = "";
+                    String key = "";
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        //uids.add(dataSnapshot1.getKey());
+                        uid = dataSnapshot1.getValue().toString();
+                        key = dataSnapshot1.getKey();
+                        break;
+                    }
+
+                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(key).removeValue();
+
+                    database.getReference().child("Users").child(uid).child("Holds").child("hold").child(book.getTitle()).removeValue();
+                    checkoutBook(book, uid);
+                    if (holder != null) {
+                        holder.reserveCheckout.setText("Reserve");
+                    }
+                    enterListener = false;
                 }
             }
 
@@ -280,6 +317,7 @@ public class AssignBook {
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("User Information").removeValue();
         database.getReference().child("Users").child(mAuth.getUid()).child("Checked Out").child("checkout").child(book.getTitle()).removeValue();
         database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").addChildEventListener(childEventListener);
+        enterListener = true;
     }
 
     // Get overdue books from database
@@ -360,45 +398,37 @@ public class AssignBook {
         });
     }
 
-    public void reserveBook(Books book) {
+    public void reserveBook(final Books book) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Log.d("fish", "reserveBook: ");
         database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).setValue("1");
-        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(mAuth.getUid()).setValue("1");
-    }
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(Long.toString(timestamp.getTime())).setValue(mAuth.getUid());
 
+        //database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").orderByValue();
+    }
     // Remove hold from book
-    public void removeHold(Books book) {
-        Log.d("fish", "removeHold: ");
-        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(mAuth.getUid()).removeValue();
-        database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).removeValue();
-    }
-
-    public void resetListener(){
-        childEventListener = new ChildEventListener() {
+    public void removeHold(final Books book) {
+        database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("fish", "child added in blank listener");
+                Log.d("fish", "removeHold: ");
+                Log.d("ajay", dataSnapshot.getValue().toString());
+                if(dataSnapshot.getValue().toString().equals(mAuth.getUid())) {
+                    Log.d("ajay", dataSnapshot.getValue().toString());
+                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").child(dataSnapshot.getKey()).removeValue();
+                    database.getReference().child("Users").child(mAuth.getUid()).child("Holds").child("hold").child(book.getTitle()).removeValue();
+                    database.getReference().child("Books").child("Book").child(book.getTitle()).child("Holds").child("hold").removeEventListener(this);
+                }
             }
-
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
-            }
-        };
     }
 }
