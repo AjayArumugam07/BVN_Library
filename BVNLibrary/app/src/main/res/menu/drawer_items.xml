@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/myBooks"
-        android:icon="@mipmap/ic_account_circle_black_24dp"
+        android:icon="@mipmap/baseline_library_books_black_24"
         android:title="My Books" />
 
     <item
